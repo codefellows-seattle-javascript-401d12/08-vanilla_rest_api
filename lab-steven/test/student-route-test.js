@@ -45,7 +45,7 @@ describe ('Student routes', () => {
       .end((err, response) => {
         if (err) return done(err);
         expect(response.status).to.equal(204);
-        expect(response.body).to.equal(null);
+        expect(response.body.name).to.equal(undefined);
         done();
       });
     });
