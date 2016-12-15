@@ -71,13 +71,14 @@ describe ('Student routes', () => {
       });
     });
 
-    it('Should return a 400 bad request if no ID is passed in', done => {
+    it('Should return an array of all IDs if no ID is given', done => {
       request
       .get('localhost:8080/api/student')
       .end((err, response) => {
-        expect(err).to.be.an('error');
-        expect(response.status).to.equal(400);
-        expect(response.body.name).to.equal(undefined);
+        if (err) return done(err);
+        expect(response.status).to.equal(200);
+        expect(response.body).to.be.an('array');
+        expect(response.body).to.have.length(1);
         done();
       });
     });
