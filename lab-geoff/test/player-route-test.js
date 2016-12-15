@@ -3,6 +3,8 @@
 const request = require('superagent');
 const expect  = require('chai').expect;
 
+require('../server.js');
+
 describe('Player Routes', function() {
   var player = null;
 
@@ -84,7 +86,7 @@ describe('Player Routes', function() {
 
         //TODO: We can also directly check storage to make sure the
         //      player is gone.
-      
+
         request.get(`localhost:5555/api/player?id=${player.id}`)
         .end( (err, res) => {
           // if(err) return done(err);
