@@ -24,6 +24,11 @@ routes.get('/api/ski-data', (req, res) => {
     });
     return;
   }
+  if(!req.url.query.id) {
+    res.writeHead(400, {'Content-Type': 'text/plain'});
+    res.write('bad request');
+    res.end();
+  }
 });
 
 routes.post('/api/ski-data', (req, res) => {
