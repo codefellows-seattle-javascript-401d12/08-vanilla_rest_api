@@ -7,7 +7,7 @@ const mocha = require('gulp-mocha');
 
 gulp.task('test', function() {
   return gulp.src('./test/*-test.js', {read: false})
-    .pipe(mocha({reporter: 'spec'}));
+    .pipe(mocha({reporter: 'spec', require: 'blanket'}));
 });
 
 gulp.task('lint', function() {

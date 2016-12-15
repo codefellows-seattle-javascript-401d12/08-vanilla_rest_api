@@ -1,9 +1,9 @@
 {
   "name": "lab08-kyler",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp"
   },
   "keywords": [],
   "author": "",
@@ -16,8 +16,9 @@
     "url": "https://github.com/bazacko/08-vanilla_rest_api/issues"
   },
   "homepage": "https://github.com/bazacko/08-vanilla_rest_api#readme",
-  "description": "",
+  "description": "Kyler Dotson's Code Fellows Lab 08 - Vanilla REST API",
   "dependencies": {
     "node-uuid": "^1.4.7"
-  }
+  },
+  "devDependencies": {}
 }

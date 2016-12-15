@@ -1,8 +1,8 @@
 'use strict';
 
 const http = require('http');
-const bodyparser = require('./lib/bodyparser.js');
-const urlparser = require('./lib/urlparser.js');
+//const bodyparser = require('./lib/bodyparser.js');
+//const urlparser = require('./lib/urlparser.js');
 const Router = require('./lib/router.js');
 const router = new Router();
 const storage = require('./lib/memStorage.js');
@@ -14,8 +14,8 @@ router.post('/api/joke', function(req, res) {
   try{
     var joke = new Joke(req.body.setup, req.body.punchline);
     storage.storeItem('joke', joke);
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.write(`Joke stored:\n${JSON.stringify(joke)}`);
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.write(JSON.stringify(joke));
     res.end();
   } catch(err) {
     console.error(err);
@@ -35,7 +35,7 @@ router.get('/api/joke', function(req, res) {
   .catch( err => {
     console.error(err);
     res.writeHead(404, {'Content-Type': 'text/plain'});
-    res.write('not found.');
+    res.write('not found');
     res.end();
   });
 });

@@ -32,7 +32,7 @@ Router.prototype.route = function() {
     .catch( err => {
       console.error(`Bad request: ${req.url}\nError: ${err}`);
       res.writeHead(400, {'Content-Type': 'text/plain'});
-      res.write('Bad request!');
+      res.write('bad request');
       res.end();
     });
   };
