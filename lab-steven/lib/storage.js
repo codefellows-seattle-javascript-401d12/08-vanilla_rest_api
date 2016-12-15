@@ -4,7 +4,7 @@ const storage = {};
 
 module.exports = exports = {};
 
-exports.createItem = (schemaName, item) => {
+exports.createItem = function(schemaName, item) {
   if (!schemaName) return Promise.reject(new Error('No schema name provided.'));
   if (!item) return Promise.reject(new Error('No item provided.'));
   if (!storage[schemaName]) storage[schemaName] = {};
@@ -14,7 +14,7 @@ exports.createItem = (schemaName, item) => {
   return Promise.resolve(item);
 };
 
-exports.getItem = (schemaName, id) => {
+exports.getItem = function(schemaName, id) {
   if (!schemaName) return Promise.reject(new Error('No schema name provided.'));
   if (!id) return Promise.reject(new Error('No ID provided.'));
 
@@ -27,7 +27,7 @@ exports.getItem = (schemaName, id) => {
   return Promise.resolve(item);
 };
 
-exports.deleteItem = (schemaName, id) => {
+exports.deleteItem = function(schemaName, id) {
   if (!schemaName) return Promise.reject(new Error('No schema name provided.'));
   if (!id) return Promise.reject(new Error('No ID provided.'));
 

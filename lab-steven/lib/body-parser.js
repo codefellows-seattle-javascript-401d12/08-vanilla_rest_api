@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = (request) => {
+module.exports = function(request) {
   return new Promise ((resolve, reject) => {
     if (request.method === 'POST' || request.method === 'PUT') {
       var body = '';
