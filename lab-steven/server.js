@@ -27,7 +27,7 @@ router.get('/api/student', (request, response) => {
 
 router.post('/api/student', (request, response) => {
   try {
-    var student = new Student(request.body.name, request.body.content);
+    var student = new Student(request.body.name, request.body.age);
     storage.createItem('student', student);
     response.writeHead(200, {'Content-Type': 'application/json'});
     response.write(JSON.stringify(student));
