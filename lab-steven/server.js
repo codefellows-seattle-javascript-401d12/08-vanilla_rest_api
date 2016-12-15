@@ -42,7 +42,18 @@ router.post('/api/student', (request, response) => {
 
 router.delete('/api/student', (request, response) => {
   if (request.url.query.id) {
-    // TODO: Call storage.deleteItem, write status header and body response.
+    storage.deleteItem('student', request.url.query.id)
+    .then(student => {
+      response.writeHead(204, {'Content-Type': 'text/plain'});
+      response.write(`${student} deleted.`);
+      response.end();
+    })
+    .catch(err => {
+      console.error(err);
+      response.writeHead(404, {'Content-Type': 'text/plain'});
+      response.write('Student not found.');
+    });
+    return;
   }
 });
 
