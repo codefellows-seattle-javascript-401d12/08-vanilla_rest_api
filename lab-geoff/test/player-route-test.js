@@ -10,12 +10,10 @@ describe('Player Routes', function() {
     it('should return a player', function(done) {
       let name = { first: 'Geoff', last: 'Simons'};
       let email = 'geoff@example.com';
-      console.log('Trying to send a player');
       request.post('localhost:5555/api/player')
       .send({ name: name, email: email})
       .end( (err, res) => {
         if(err) return done(err);
-        console.log(res);
         expect(res.status).to.equal(200);
         expect(res.body.name).to.deep.equal(name);
         expect(res.body.email).to.equal(email);

@@ -11,9 +11,6 @@ const PORT = process.env.PORT || 5555;
 
 //TODO: Possibly move router config to a different file/module
 router.get('/api/player', function(req, res) {
-  //I understand why we just check for what we want,
-  //instead of checking for everything that could be wrong.
-  //ex: if(!req.url || !req.url.query || !req.url.query.id ...)
   if(req.url.query.id) {
     storage.fetchItem('player', req.url.query.id)
     .then( player => {
@@ -39,16 +36,12 @@ router.post('/api/player', function(req, res) {
   }
   //TODO: Assert that email is a valid email address.
 
-  console.log('creating player...');
   var player = new Player(req.body.name, req.body.email);
-  console.log('storing player...');
   storage.createItem('player', player)
   .then( () => {
-    console.log('success, sending',player);
     res.json(player);
   })
   .catch( (err) => {
-    console.log('jacked up');
     console.error(err);
     res.err(400, 'bad request');
   });

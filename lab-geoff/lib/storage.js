@@ -1,5 +1,7 @@
 'use strict';
 
+const uuid = require('node-uuid');
+
 module.exports = exports = {};
 
 const storage = {};
@@ -7,9 +9,9 @@ const storage = {};
 exports.createItem = function(collection, item) {
   if(!collection) return Promise.reject(new Error('collection name not supplied'));
   if(!item) return Promise.reject(new Error('missing item to create'));
-  if(!item.id) {
-    //TODO: Either we assign an id, or reject the request.
-  }
+
+  item.id = item.id || uuid.v4().slice(0,8);
+
   if(!storage[collection]) storage[collection] = {};
 
   storage[collection][item.id] = item;

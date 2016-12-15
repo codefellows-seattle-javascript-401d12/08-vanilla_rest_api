@@ -30,23 +30,19 @@ Router.prototype.delete = function(endpoint, handler) {
 };
 
 Router.prototype.route = function() {
-  console.log('Router.route');
   return (req, res) => {
-    console.log('Parsing request...');
-    //NOTE: This resembles ExpressJS middleware
+    //NOTE: These resemble ExpressJS middleware
     Promise.all([
       parseUrl(req),
       parseJSON(req),
       addMethods(res)
     ])
     .then( () => {
-      console.log('Looking up route...');
+      console.log('Looking up route:',req.method,req.url.pathname);
       let route = this.routes[req.method][req.url.pathname];
       if(typeof route === 'function') {
-        console.log('found route');
         return route(req, res);
       }
-      console.log('no route!');
       let msg = `route not found: ${req.method} ${req.url.pathname}`;
       console.error(msg);
 
