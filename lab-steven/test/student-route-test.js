@@ -39,7 +39,7 @@ describe ('Student routes', () => {
       .post('localhost:8080/api/student')
       .send({weasel: 'Dude', bald: 'Bro'})
       .end((err, response) => {
-        if (err) return done(err);
+        expect(err).to.be.an('error');
         expect(response.status).to.equal(400);
         expect(response.body.name).to.equal(undefined);
         done();
