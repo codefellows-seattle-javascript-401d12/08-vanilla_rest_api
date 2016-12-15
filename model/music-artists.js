@@ -2,11 +2,11 @@
 
 const uuid = require('node-uuid');
 
-module.exports = function(bandName, genre) {
-  if(!bandName) throw new Error('expected band name');
+module.exports = function(name, genre) {
+  if(!name) throw new Error('expected artist name');
   if(!genre) throw new Error('expected genre');
 
-  this.id = uuid.v4();
-  this.bandName = bandName;
+  this.id = uuid.v1();
+  this.name = name;
   this.genre = genre;
 };

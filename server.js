@@ -31,6 +31,7 @@ router.get('/api/artist', function (request, response) {
 
 router.post('/api/artist', function(request, response) {
   try {
+    console.log(request.body);
     var artist = new Artist(request.body.name, request.body.genre);
     storage.createItem('artist', artist);
     response.writeHead(200, {
@@ -48,12 +49,23 @@ router.post('/api/artist', function(request, response) {
   }
 });
 
-router.put('/api/artist', function(request, response) {
-  // TODO: create put method
-});
-
 router.delete('/api/artist', function(request, response) {
-  // TODO: create delete method
+  if (request.url.query.id) {
+    storage.deleteItem('artist', request.url.query.id)
+    .then( () => {
+      response.writeHead(204);
+      console.log('artist deleted');
+      response.end();
+    })
+    .catch(err => {
+      console.error(err);
+      response.writeHead(404, {
+        'Content-Type': 'text/plain'
+      });
+      response.write('No Artist found');
+    });
+    return;
+  }
 });
 
 const server = http.createServer(router.route());

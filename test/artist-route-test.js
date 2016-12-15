@@ -20,11 +20,11 @@ describe('Artist Routes', function() {
       });
     });
   });
-  describe('GET:')
-  //TODO: create GET test
 
-  describe('PUT:')
-  //TODO: create PUT test
-  describe('DELETE:')
-  //TODO: create DELETE request
+//   describe('GET:')
+//   //TODO: create GET test
+//
+
+//   describe('DELETE:')
+//   //TODO: create DELETE request
 });
