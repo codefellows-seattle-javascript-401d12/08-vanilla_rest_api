@@ -53,6 +53,7 @@ router.post('/api/note', function(req, res) {
     res.end();
   };
 });
+
 //Logic: Method: DELETE
 router.delete('/api/note', function(req, res) {
   if (req.url.query.id) {
