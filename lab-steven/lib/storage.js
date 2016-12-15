@@ -24,5 +24,5 @@ exports.getItem = (schemaName, id) => {
   var item = schema[id];
   if (!item) return Promise.reject(new Error('No student exists with that ID.'));
 
-  Promise.resolve(item); 
+  return Promise.resolve(item); 
 };
