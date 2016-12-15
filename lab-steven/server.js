@@ -23,9 +23,12 @@ router.get('/api/student', (request, response) => {
     });
     return;
   }
-  response.writeHead(400, {'Content-Type': 'text/plain'});
-  response.write('Bad request.');
-  response.end();
+  storage.getAllItems()
+  .then(allIds => {
+    response.writeHead(200, {'Content-Type': 'application/json'});
+    response.write(JSON.stringify(allIds));
+    response.end();
+  });
 });
 
 router.post('/api/student', (request, response) => {

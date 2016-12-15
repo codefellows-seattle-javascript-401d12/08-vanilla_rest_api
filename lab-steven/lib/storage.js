@@ -42,3 +42,8 @@ exports.deleteItem = function(schemaName, id) {
   delete storage[schemaName][id];
   return Promise.resolve();
 };
+
+exports.getAllItems = function() {
+  var allIds = Object.keys(storage['student']);
+  return Promise.resolve(allIds);
+};
