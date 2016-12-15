@@ -48,6 +48,25 @@ router.post('/api/pin', function(req, res) {
   }
 });
 
+router.delete('/api/pin', function(req, res) {
+  if (req.url.query.id) {
+    storage.deleteItem('pin', req.url.query.id)
+    .then(() => {
+      res.writeHead(204);
+      res.end();
+    })
+    .catch(err => {
+      console.error(err);
+      res.writeHead(404, {
+        'Content-Type': 'text/plain'
+      });
+      res.write('pin not found');
+      res.end();
+    });
+    return;
+  }
+});
+
 const server = http.createServer(router.route());
 
 server.listen(PORT, () => {
