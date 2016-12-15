@@ -23,6 +23,9 @@ router.get('/api/student', (request, response) => {
     });
     return;
   }
+  response.writeHead(400, {'Content-Type': 'text/plain'});
+  response.write('Bad request.');
+  response.end();
 });
 
 router.post('/api/student', (request, response) => {
