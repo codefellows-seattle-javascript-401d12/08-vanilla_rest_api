@@ -6,5 +6,8 @@ const parseQuery = require('querystring').parse;
 module.exports = function(req) {
   req.url = parseUrl(req.url);
   req.url.query = parseQuery(req.url.query);
+
+  console.log('parsed url:',req.url);
+
   return Promise.resolve(req);
 };

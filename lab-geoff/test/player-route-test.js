@@ -10,6 +10,7 @@ describe('Player Routes', function() {
     it('should return a player', function(done) {
       let name = { first: 'Geoff', last: 'Simons'};
       let email = 'geoff@example.com';
+      console.log('Trying to send a player');
       request.post('localhost:5555/api/player')
       .send({ name: name, email: email})
       .end( (err, res) => {

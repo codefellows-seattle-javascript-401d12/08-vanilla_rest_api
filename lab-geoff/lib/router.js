@@ -1,7 +1,8 @@
 'use strict';
 
-const parseUrl  = require('./parse-url');
-const parseJSON = require('./parse-json');
+const parseUrl   = require('./parse-url.js');
+const parseJSON  = require('./parse-json.js');
+const addMethods = require('./add-response-methods.js');
 
 const Router = module.exports = function() {
   this.routes = {
@@ -29,18 +30,23 @@ Router.prototype.delete = function(endpoint, handler) {
 };
 
 Router.prototype.route = function() {
+  console.log('Router.route');
   return (req, res) => {
+    console.log('Parsing request...');
     //NOTE: This resembles ExpressJS middleware
     Promise.all([
       parseUrl(req),
-      parseJSON(req)
+      parseJSON(req),
+      addMethods(res)
     ])
     .then( () => {
+      console.log('Looking up route...');
       let route = this.routes[req.method][req.url.pathname];
       if(typeof route === 'function') {
+        console.log('found route');
         return route(req, res);
       }
-
+      console.log('no route!');
       let msg = `route not found: ${req.method} ${req.url.pathname}`;
       console.error(msg);
 
