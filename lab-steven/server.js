@@ -32,7 +32,7 @@ router.get('/api/student', (request, response) => {
 });
 
 router.post('/api/student', (request, response) => {
-  var student = new Student(request.body.name, request.body.age);
+  var student = new Student(request.body);
   storage.createItem('student', student)
   .then(student => {
     response.writeHead(200, {'Content-Type': 'application/json'});

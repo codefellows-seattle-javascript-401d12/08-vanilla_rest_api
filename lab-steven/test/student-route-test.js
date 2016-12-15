@@ -12,7 +12,7 @@ describe ('Student routes', () => {
     it('Should return a student when name and age are passed in', done => {
       request
       .post('localhost:8080/api/student')
-      .send({name: 'Steven', age: '30'})
+      .send({name: 'Steven', age: '30', height: '5ft1 11in', badass: 'Yarp'})
       .end((err, response) => {
         if (err) return done(err);
         expect(response.status).to.equal(200);

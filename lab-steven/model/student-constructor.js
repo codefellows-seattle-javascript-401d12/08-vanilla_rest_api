@@ -2,8 +2,9 @@
 
 const uuid = require('node-uuid');
 
-module.exports = function(name, age) {
+module.exports = function(student) {
   this.id = uuid.v4();
-  this.name = name;
-  this.age = age;
+  Object.keys(student).forEach(function(key) {
+    this[key] = student[key];
+  }, this);
 };
