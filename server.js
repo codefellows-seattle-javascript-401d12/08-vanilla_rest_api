@@ -55,6 +55,33 @@ router.post('/api/song', function(req, res) {
   }
 });
 
+router.delete('/api/song', function(req, res){
+  if(req.url.query.id) {
+    storage.deleteItem('song', req.url.query.id)
+    .then(() => {
+      res.writeHead(204, {
+        'Content-Type': 'text/plain'
+      });
+      res.write('no content found');
+      res.end();
+    })
+    .catch( err => {
+      console.error(err);
+      res.writeHead(404, {
+        'Content-Type': 'text/plain'
+      });
+      res.write('not found');
+      res.end();
+    });
+    return;
+  }
+  res.writeHead(400, {
+    'Content-Type': 'text/plain'
+  });
+  res.write('bad request');
+  res.end();
+});
+
 const server = http.createServer(router.route());
 
 server.listen(PORT, () => {
