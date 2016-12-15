@@ -37,8 +37,32 @@ router.get('/api/note', function(req, res) {
     return;
   };
 
-//Logic: Method: POST
+  res.writeHead(400, {
+    'Content-Type': 'text/plain'
+  });
+  res.write('bad request');
+  res.end();
+});
 
+//Logic: Method: POST
+router.post('/api/note', function(req, res) {
+  try {
+    var note = new Note(req.body.name, req.body.content);
+    storage.createItem('note', note);
+    res.writeHead(200, {
+      'Content-Type': 'application/json'
+    });
+    res.write(JSON.stringify(note));
+    res.end();
+  } catch (err) {
+    console.error(err);
+    res.writeHead(400, {
+      'Content-Type': 'text/plain'
+    });
+    res.write('bad request');
+    res.end();
+  };
+});
 //Logic: Method: DELETE
 
 
