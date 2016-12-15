@@ -20,6 +20,15 @@ describe('Data routes', function() {
           done();
         });
     });
+    it('should return a data object', function(done) {
+      request.post('localhost:3000/api/ski-data')
+        .send({rating: 10})
+        .end((err, res) => {
+          if(err) return done(err);
+          expect(res.status).to.equal(400);
+          done();
+        });
+    });
   });
   describe('GET: /api/ski-data', function() {
     it('should return a data object', function(done) {
@@ -29,6 +38,22 @@ describe('Data routes', function() {
           expect(res.status).to.equal(200);
           expect(res.body.location).to.equal('Mt baker');
           expect(res.body.rating).to.equal(10);
+          done();
+        });
+    });
+    it('should return a 404 error', function(done) {
+      request.get('localhost:3000/api/ski-data?id=123456789')
+        .end((err, res) => {
+          if(err) return done(err);
+          expect(res.status).to.equal(404);
+          done();
+        });
+    });
+    it('should return a 400 error', function(done) {
+      request.get('localhost:3000/api/ski-data?id=')
+        .end((err, res) => {
+          if(err) return done(err);
+          expect(res.status).to.equal(400);
           done();
         });
     });
