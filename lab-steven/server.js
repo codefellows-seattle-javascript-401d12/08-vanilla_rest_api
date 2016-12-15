@@ -43,9 +43,8 @@ router.post('/api/student', (request, response) => {
 router.delete('/api/student', (request, response) => {
   if (request.url.query.id) {
     storage.deleteItem('student', request.url.query.id)
-    .then(student => {
-      response.writeHead(204, {'Content-Type': 'text/plain'});
-      response.write(`${student} deleted.`);
+    .then(() => {
+      response.writeHead(204);
       response.end();
     })
     .catch(err => {

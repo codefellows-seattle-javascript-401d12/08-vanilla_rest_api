@@ -38,5 +38,5 @@ exports.deleteItem = function(schemaName, id) {
   if (!item) return Promise.reject(new Error('No student exists with that ID.'));
 
   delete storage[schemaName][id];
-  return Promise.resolve(item);
+  return Promise.resolve();
 };
