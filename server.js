@@ -48,6 +48,14 @@ router.post('/api/artist', function(request, response) {
   }
 });
 
+router.put('/api/artist', function(request, response) {
+  // TODO: create put method
+});
+
+router.delete('/api/artist', function(request, response) {
+  // TODO: create delete method
+});
+
 const server = http.createServer(router.route());
 
 server.listen(PORT, () => {
