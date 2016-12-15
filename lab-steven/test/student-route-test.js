@@ -40,7 +40,14 @@ describe ('Student routes', () => {
 
   describe('DELETE: /api/student', () => {
     it ('Should return a status of 204 with no content body', done => {
-
+      request
+      .delete(`localhost:8080/api/student?id=${student.id}`)
+      .end((err, response) => {
+        if (err) return done(err);
+        expect(response.status).to.equal(204);
+        expect(response.body).to.equal(null);
+        done();
+      });
     });
   });
 });
