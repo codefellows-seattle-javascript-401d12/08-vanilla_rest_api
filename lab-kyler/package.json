@@ -16,5 +16,8 @@
     "url": "https://github.com/bazacko/08-vanilla_rest_api/issues"
   },
   "homepage": "https://github.com/bazacko/08-vanilla_rest_api#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "node-uuid": "^1.4.7"
+  }
 }
