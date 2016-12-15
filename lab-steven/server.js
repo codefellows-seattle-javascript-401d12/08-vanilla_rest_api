@@ -10,6 +10,18 @@ const router = new Router();
 router.get('/api/student', (request, response) => {
   if (request.url.query.id) {
     storage.getItem('student', request.url.query.id)
+    .then(student => {
+      response.writeHead(200, {'Content-Type': 'application/json'});
+      response.write(JSON.stringify(student));
+      response.end();
+    })
+    .catch(err => {
+      console.error(err);
+      response.writeHead(404, {'Content-Type': 'text/plain'});
+      response.write('Student not found.');
+      response.end();
+    });
+    return;
   }
 });
 
