@@ -7,7 +7,7 @@ To install this app, clone down the repository, navigate to the `lab-steven` dir
 
 Now open up an additional terminal shell/tab and you can connect to the API by using HTTPIE. You can install HTTPIE on a Mac by running `brew install httpie` or on Linux by running `sudo apt install httpie`. By default, the API does not have any resources available, so you will need to POST some to use GET or DELETE.
 
-This particular API supports the POSTing of objects that at least have a name and an age field. Additional properties may be included if desired, but they must have name and age. You can POST an object by running `http POST localhost:<port#>/api/student name="<name>" age="<age>"`.
+This particular API supports the POSTing of student objects that have a name and an age field. You can POST an object by running `http POST localhost:<port#>/api/student name="<name>" age="<age>"`.
 
 If you forget to include the header fields, you will get back a 400 status message of bad request. If you forget to include name and age fields, you will also get a 400 status response.
 
