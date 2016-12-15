@@ -32,3 +32,20 @@ exports.fetchItem = function(collection, id) {
     resolve(item);
   });
 };
+
+exports.deleteItem = function(collection, id) {
+  return new Promise( (resolve, reject) => {
+    if(!collection) return reject(new Error('collection name not supplied'));
+    if(!id) return reject(new Error('missing id'));
+
+    var all = storage[collection];
+    if(!all) return reject(new Error(`collection ${collection} does not exist`));
+
+    var item = all[id];
+    if(!item) return reject(new Error(`could not find ${id}`));
+
+    delete all[id];
+
+    resolve(item); //Giving back the removed item
+  });
+};

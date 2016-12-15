@@ -17,6 +17,7 @@ module.exports = function(res) {
   res.err = function(status, message) {
     res.status  = status  || 500;
     message = message || 'Internal server error';
+    res.statusMessage = message;
 
     this.send(message);
   };

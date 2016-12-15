@@ -26,6 +26,19 @@ router.get('/api/player', function(req, res) {
   res.err(400, 'bad request, missing id');
 });
 
+router.delete('/api/player', function(req, res) {
+  if(req.url.query.id) {
+    storage.deleteItem('player', req.url.query.id)
+    .then( ()  => {
+      res.err(204, ' ');
+    })
+    .catch( err => {
+      console.error(err);
+      res.err(404, 'could not find item');
+    });
+  }
+});
+
 router.post('/api/player', function(req, res) {
 
   if(!req.body.name || req.body.name.length === 0) {
