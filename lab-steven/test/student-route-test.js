@@ -59,6 +59,17 @@ describe ('Student routes', () => {
         done();
       });
     });
+
+    it('Should return 404 not found for a good request, but wrong id', done => {
+      request
+      .get('localhost:8080/api/student?id=69')
+      .end((err, response) => {
+        expect(err).to.be.an('error');
+        expect(response.status).to.equal(404);
+        expect(response.body.name).to.equal(undefined);
+        done();
+      });
+    });
   });
 
   describe('DELETE: /api/student', () => {
