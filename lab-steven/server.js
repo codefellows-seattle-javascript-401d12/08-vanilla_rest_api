@@ -26,18 +26,19 @@ router.get('/api/student', (request, response) => {
 });
 
 router.post('/api/student', (request, response) => {
-  try {
-    var student = new Student(request.body.name, request.body.age);
-    storage.createItem('student', student);
+  var student = new Student(request.body.name, request.body.age);
+  storage.createItem('student', student)
+  .then(student => {
     response.writeHead(200, {'Content-Type': 'application/json'});
     response.write(JSON.stringify(student));
     response.end();
-  } catch(err) {
+  })
+  .catch(err => {
     console.error(err);
     response.writeHead(400, {'Content-Type': 'text/plain'});
     response.write('Bad request.');
     response.end();
-  }
+  });
 });
 
 router.delete('/api/student', (request, response) => {

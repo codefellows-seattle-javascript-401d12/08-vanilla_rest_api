@@ -7,6 +7,8 @@ module.exports = exports = {};
 exports.createItem = function(schemaName, item) {
   if (!schemaName) return Promise.reject(new Error('No schema name provided.'));
   if (!item) return Promise.reject(new Error('No item provided.'));
+  if (!item.age) return Promise.reject(new Error('Student has no age field.'));
+  if (!item.name) return Promise.reject(new Error('Student has no name field.'));
   if (!storage[schemaName]) storage[schemaName] = {};
 
   storage[schemaName][item.id] = item;

@@ -9,7 +9,7 @@ describe ('Student routes', () => {
   var student = null;
 
   describe('POST: /api/student', () => {
-    it('Should return a student', done => {
+    it('Should return a student when name and age are passed in', done => {
       request
       .post('localhost:8080/api/student')
       .send({name: 'Steven', age: '30'})
@@ -19,6 +19,29 @@ describe ('Student routes', () => {
         expect(response.body.name).to.equal('Steven');
         expect(response.body.age).to.equal('30');
         student = response.body;
+        done();
+      });
+    });
+
+    it('Should return a status of 400 and bad request with no body', done => {
+      request
+      .post('localhost:8080/api/student')
+      .end((err, response) => {
+        expect(err).to.be.an('error');
+        expect(response.status).to.equal(400);
+        expect(response.body.name).to.equal(undefined);
+        done();
+      });
+    });
+
+    it('Should return a status of 400 and bad request with wrong body inputs', done => {
+      request
+      .post('localhost:8080/api/student')
+      .send({weasel: 'Dude', bald: 'Bro'})
+      .end((err, response) => {
+        if (err) return done(err);
+        expect(response.status).to.equal(400);
+        expect(response.body.name).to.equal(undefined);
         done();
       });
     });
