@@ -3,7 +3,7 @@
 const parseUrl = require('./url-parser.js');
 const parseJSON = require('./body-parser.js');
 
-const Router = module.exports = () => {
+const Router = module.exports = function() {
   this.routes = {
     GET: {},
     POST: {},
@@ -12,23 +12,23 @@ const Router = module.exports = () => {
   };
 };
 
-Router.prototype.get = (endpoint, callback) => {
+Router.prototype.get = function(endpoint, callback) {
   this.routes.GET[endpoint] = callback;
 };
 
-Router.prototype.post = (endpoint, callback) => {
+Router.prototype.post = function(endpoint, callback) {
   this.routes.POST[endpoint] = callback;
 };
 
-Router.prototype.put = (endpoint, callback) => {
+Router.prototype.put = function(endpoint, callback) {
   this.routes.PUT[endpoint] = callback;
 };
 
-Router.prototype.delete = (endpoint, callback) => {
+Router.prototype.delete = function(endpoint, callback) {
   this.routes.DELETE[endpoint] = callback;
 };
 
-Router.prototype.route = () => {
+Router.prototype.route = function() {
   return (request, response) => {
     Promise.all([
       parseUrl(request),
