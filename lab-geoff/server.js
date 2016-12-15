@@ -30,7 +30,7 @@ router.delete('/api/player', function(req, res) {
   if(req.url.query.id) {
     storage.deleteItem('player', req.url.query.id)
     .then( ()  => {
-      res.err(204, ' ');
+      res.err(204, ' '); //TODO: not really an error
     })
     .catch( err => {
       console.error(err);
