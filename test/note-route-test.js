@@ -8,7 +8,7 @@ require('../server.js');
 describe('Pin Routes', function() {
   var pin = null;
   describe('POST: /api/pin', function() {
-    it('needs to return a pin', function(done) {
+    it('should return a pin', function(done) {
       request.post('localhost:8000/api/pin')
       .send({title: 'test title', skill: 'test skill'})
       .end((err, res) => {
@@ -23,7 +23,7 @@ describe('Pin Routes', function() {
   });
 
   describe('GET: /api/pin', function() {
-    it('needs to return a pin', function(done) {
+    it('should return a pin', function(done) {
       request.get(`localhost:8000/api/pin?id=${pin.id}`)
       .end((err, res) => {
         if(err) return done(err);
@@ -36,7 +36,7 @@ describe('Pin Routes', function() {
   });
 
   describe('DELETE: /api/pin', function() {
-    it('needs to return No Content', function(done) {
+    it('should return No Content', function(done) {
       request.delete(`localhost:8000/api/pin?id=${pin.id}`)
       .end((err, res) => {
         expect(res.status).to.equal(204);
