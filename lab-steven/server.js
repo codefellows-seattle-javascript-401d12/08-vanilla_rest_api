@@ -40,6 +40,12 @@ router.post('/api/student', (request, response) => {
   }
 });
 
+router.delete('/api/student', (request, response) => {
+  if (request.url.query.id) {
+    // TODO: Call storage.deleteItem, write status header and body response.
+  }
+});
+
 const server = http.createServer();
 
 server.listen(PORT, () => {
