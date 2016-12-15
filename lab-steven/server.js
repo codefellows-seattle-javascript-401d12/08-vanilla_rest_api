@@ -57,7 +57,7 @@ router.delete('/api/student', (request, response) => {
   }
 });
 
-const server = http.createServer();
+const server = http.createServer(router.route());
 
 server.listen(PORT, () => {
   console.log('Server running on port', PORT);
