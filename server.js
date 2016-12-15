@@ -9,7 +9,7 @@ const router = new Router();
 
 router.get('/api/dog', function(req, res) {
   if(req.url.query.id) {
-    storage.fetchItem('note', req.url.query.id)
+    storage.fetchItem('dog', req.url.query.id)
     .then( dog => {
       res.writeHead(200, {
         'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ router.get('/api/dog', function(req, res) {
       res.writeHead(404, {
         'Content-Type': 'text/plain'
       });
-      res.write('not found');
+      res.write('dog not found');
       res.end();
     });
     return;
