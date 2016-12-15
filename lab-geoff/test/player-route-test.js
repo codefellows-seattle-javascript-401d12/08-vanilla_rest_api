@@ -82,6 +82,9 @@ describe('Player Routes', function() {
         if(err) return done(err);
         expect(res.status).to.equal(204);
 
+        //TODO: We can also directly check storage to make sure the
+        //      player is gone.
+      
         request.get(`localhost:5555/api/player?id=${player.id}`)
         .end( (err, res) => {
           // if(err) return done(err);
@@ -90,7 +93,12 @@ describe('Player Routes', function() {
         });
       });
       // .then( res => {
-      //
+      //   expect(res.status).to.equal(204);
+      //   return request.get(`localhost:5555/api/player?id=${player.id}`);
+      // })
+      // .then( res => {
+      //   expect(res.status).to.equal(404);
+      //   done();
       // })
       // .catch( err => {
       //   done(err);
