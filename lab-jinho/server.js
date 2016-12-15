@@ -59,7 +59,7 @@ router.delete('/api/note', function(req, res) {
   if (req.url.query.id) {
     storage.deleteItem('note', req.url.query.id)
     .then(() => {
-      res.writeHead(200, {'Content-Type': 'application/json'});
+      res.writeHead(204, {'Content-Type': 'application/json'});
       res.end();
     })
     .catch( err => {
