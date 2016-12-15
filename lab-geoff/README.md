@@ -4,7 +4,7 @@ This API handles the CRD of CRUD for player objects. Each player has a name and 
 
 # API
 
-## GET /api/player?id=<player_id>
+## GET /api/player?id=player_id
 Gets a player from the system. Returns application/json of the player object, or 404 if not found.
 
 ## POST /api/player
@@ -17,5 +17,5 @@ Add a player to the system.
 ```
 Both `name` and `email` are required in the post body. API expects content type of application/json.
 
-## DELETE /api/player?id=<player_id>
+## DELETE /api/player?id=player_id
 Removes a player from the system, if found.
