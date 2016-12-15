@@ -9,7 +9,7 @@ describe('Dog Routes', function() {
   var dog = null;
 
   describe('POST: /api/dog', function() {
-    it('should return a dog', function(done) {
+    it('should return a 200 with valid body', function(done) {
       request.post('localhost:8000/api/dog')
       .send({name: 'test name', breed: 'test breed', color: 'test color'})
       .end((err, res) => {

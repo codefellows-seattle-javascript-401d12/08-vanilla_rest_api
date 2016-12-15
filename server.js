@@ -59,7 +59,7 @@ router.delete('/api/dog', function(req, res) {
   if(req.url.query.id) {
     storage.deleteItem('dog', req.url.query.id)
     .then( dog => {
-      res.writeHead(200, {
+      res.writeHead(204, {
         'Content-Type': 'application/json'
       });
       res.write(JSON.stringify(dog));
