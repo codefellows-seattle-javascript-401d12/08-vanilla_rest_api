@@ -37,6 +37,8 @@ exports.deleteItem = function(schemaName, id) {
 
 exports.getAllItems = function(schemaName) {
   return fs.readdirProm(`${__dirname}/../data/${schemaName}`)
-  .then(arrayOfFiles => Promise.resolve(arrayOfFiles.toString()))
+  .then(arrayOfFiles => {
+    return Promise.resolve(arrayOfFiles.toString().slice(9).split('.json').join('').split(',').filter(element => element !== '.json'));
+  })
   .catch(err => Promise.reject(err));
 };
