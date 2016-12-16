@@ -2,7 +2,7 @@
 
 const http = require('http');
 const Router = require('./lib/router.js');
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 const routes = new Router();
 
 require('./routes/routes.js')(routes);

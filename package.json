@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "bluebird": "^3.4.6",
-    "cowsay": "^1.1.9",
     "node-uuid": "^1.4.7"
   }
 }

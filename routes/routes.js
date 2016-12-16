@@ -11,8 +11,7 @@ module.exports = function(routes){
       .then( skiData => {
         response.JSON(res, 200, skiData);
       })
-      .catch( err => {
-        console.error(err);
+      .catch( () => {
         response.text(res, 404, 'Not found');
       });
       return;
@@ -28,14 +27,9 @@ module.exports = function(routes){
       data.setData('location', skiData);
       response.JSON(res, 200, skiData);
     } catch(err) {
-      console.error(err);
       response.text(res, 400, 'Bad request');
     }
   });
-
-  // routes.put('/api/ski-data', (req, res) => {
-  //TODO: add put route
-  // });
 
   routes.delete('/api/ski-data', (req, res) => {
     if(req.url.query.id) {
@@ -43,8 +37,7 @@ module.exports = function(routes){
       .then( () => {
         response.JSON(res, 204, 'No content');
       })
-      .catch( err => {
-        console.error(err);
+      .catch( () => {
         response.text(res, 404, 'Not found');
       });
       return;
