@@ -2,6 +2,7 @@
 
 const parseUrl = require('./url-parser.js');
 const parseJSON = require('./body-parser.js');
+const respond = require('./respond.js');
 
 const Router = module.exports = function() {
   this.routes = {
@@ -39,19 +40,10 @@ Router.prototype.route = function() {
         this.routes[request.method][request.url.pathname](request, response);
         return;
       }
-
-      console.error('No such route exists.');
-
-      response.writeHead(404, {'Content-Type': 'text/plain'});
-      response.write('No such route exists.');
-      response.end();
+      respond.sendText(response, 404, 'No such route exists.', 'No such route exists.');
     })
     .catch(err => {
-      console.error(err);
-
-      response.writeHead(400, {'Content-Type': 'text/plain'});
-      response.write('Bad request.');
-      response.end();
+      respond.sendText(response, 400, 'Bad request.', err);
     });
   };
 };

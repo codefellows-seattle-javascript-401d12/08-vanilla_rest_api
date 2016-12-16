@@ -12,13 +12,12 @@ describe ('Student routes', () => {
     it('Should return a student when name and age are passed in', done => {
       request
       .post('localhost:8080/api/student')
-      .send({name: 'Steven', age: '30', height: '5ft1 11in', badass: 'Yarp'})
+      .send({name: 'Steven', age: '30'})
       .end((err, response) => {
         if (err) return done(err);
         expect(response.status).to.equal(200);
-        expect(response.body.name).to.equal('Steven');
-        expect(response.body.age).to.equal('30');
-        student = response.body;
+        expect(response.body).to.be.a('string');
+        student = JSON.parse(response.body);
         done();
       });
     });
@@ -29,7 +28,7 @@ describe ('Student routes', () => {
       .end((err, response) => {
         expect(err).to.be.an('error');
         expect(response.status).to.equal(400);
-        expect(response.body.name).to.equal(undefined);
+        expect(response.body.id).to.equal(undefined);
         done();
       });
     });
@@ -41,7 +40,7 @@ describe ('Student routes', () => {
       .end((err, response) => {
         expect(err).to.be.an('error');
         expect(response.status).to.equal(400);
-        expect(response.body.name).to.equal(undefined);
+        expect(response.body.id).to.equal(undefined);
         done();
       });
     });
@@ -53,6 +52,7 @@ describe ('Student routes', () => {
       .get(`localhost:8080/api/student?id=${student.id}`)
       .end((err, response) => {
         if (err) return done(err);
+        response.body = JSON.parse(response.body);
         expect(response.status).to.equal(200);
         expect(response.body.name).to.equal('Steven');
         expect(response.body.age).to.equal('30');
@@ -78,7 +78,7 @@ describe ('Student routes', () => {
         if (err) return done(err);
         expect(response.status).to.equal(200);
         expect(response.body).to.be.an('array');
-        expect(response.body).to.have.length(1);
+        expect(response.body).to.have.length.above(1);
         done();
       });
     });
