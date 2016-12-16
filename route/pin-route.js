@@ -37,8 +37,7 @@ module.exports = function(router) {
     if (req.url.query.id) {
       storage.deleteItem('pin', req.url.query.id)
       .then(() => {
-        res.writeHead(204);
-        res.end();
+        response.sendNoContent(res, 204);
       })
       .catch(err => {
         console.error(err);
