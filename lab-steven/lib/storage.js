@@ -12,24 +12,19 @@ exports.createItem = function(schemaName, item) {
   if (!item.age) return Promise.reject(new Error('Student has no age field.'));
   if (!item.name) return Promise.reject(new Error('Student has no name field.'));
 
-  fs.writeFileProm(`${__dirname}/../data/${schemaName}/${item.id}.json`)
-  .then()
-  .catch(err => {
-    Promise.reject(err);
-  });
+  var data = JSON.stringify(item);
+  fs.writeFileProm(`${__dirname}/../data/${schemaName}/${item.id}.json`, data)
+  .then(() => Promise.resolve(data))
+  .catch(err => Promise.reject(err));
 };
 
 exports.getItem = function(schemaName, id) {
   if (!schemaName) return Promise.reject(new Error('No schema name provided.'));
   if (!id) return Promise.reject(new Error('No ID provided.'));
 
-  var schema = storage[schemaName];
-  if (!schema) return Promise.reject(new Error('Schema not found.'));
-
-  var item = schema[id];
-  if (!item) return Promise.reject(new Error('No student exists with that ID.'));
-
-  return Promise.resolve(item);
+  fs.readFileProm(`${__dirname}/../data/${schemaName}/${id}.json`)
+  .then(data => Promise.resolve(data))
+  .catch(err => Promise.reject(err));
 };
 
 exports.deleteItem = function(schemaName, id) {
