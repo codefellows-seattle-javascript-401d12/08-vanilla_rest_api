@@ -22,7 +22,6 @@ describe('Pin Routes', function() {
     });
     it('should return a 400 bad request error', function(done) {
       request.post('localhost:3000/api/pin')
-      .send({title: 'test title'})
       .end((res) => {
         expect(res.status).to.equal(400);
         done();
