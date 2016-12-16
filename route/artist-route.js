@@ -1,7 +1,7 @@
 'use strict';
 
-const storage = require('./lib/storage.js');
-const Artist = require('./model/music-artists.js');
+const storage = require('../lib/storage.js');
+const Artist = require('../model/music-artists.js');
 const response = require('../lib/response.js');
 
 module.exports = function(router) {
