@@ -39,7 +39,7 @@ module.exports = function(router) {
     if(!req.body.email || req.body.email.length === 0) {
       return res.text(400, 'bad request, missing email');
     }
-    //TODO: Assert that email is a valid email address.
+    //tODO: Assert that email is a valid email address.
 
     var player = new Player(req.body.name, req.body.email);
     storage.createItem('player', player)

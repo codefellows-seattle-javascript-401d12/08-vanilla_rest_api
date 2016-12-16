@@ -10,7 +10,6 @@ describe('Player Routes', function() {
 
   describe('POST: /api/player', function() {
     it('should return a player', function(done) {
-      // let name = { first: 'Geoff', last: 'Simons'};
       let name = 'Geoff Simons';
       let email = 'geoff@example.com';
       request.post('localhost:5555/api/player')
@@ -51,7 +50,6 @@ describe('Player Routes', function() {
       request.get('localhost:5555/api/player?id=not-a-real-id')
       .end( (err, res) => {
         expect(res.status).to.equal(404);
-        //TODO: expect message to be 'not found'
         done();
       });
     });
@@ -60,7 +58,6 @@ describe('Player Routes', function() {
       request.get('localhost:5555/api/player')
       .end( (err, res) => {
         expect(res.status).to.equal(400);
-        //TODO: expect message to be 'bad request'
         done();
       });
     });
@@ -71,7 +68,6 @@ describe('Player Routes', function() {
       request.get('localhost:5555/a/bogus/route')
       .end( (err, res) => {
         expect(res.status).to.equal(404);
-        //TODO: expect message to be 'bad request'
         done();
       });
     });
@@ -84,12 +80,8 @@ describe('Player Routes', function() {
         if(err) return done(err);
         expect(res.status).to.equal(204);
 
-        //TODO: We can also directly check storage to make sure the
-        //      player is gone.
-
         request.get(`localhost:5555/api/player?id=${player.id}`)
         .end( (err, res) => {
-          // if(err) return done(err);
           expect(res.status).to.equal(404);
           done();
         });
