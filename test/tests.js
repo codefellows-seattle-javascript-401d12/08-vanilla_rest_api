@@ -2,7 +2,7 @@
 
 const request = require('superagent');
 const expect = require('chai').expect;
-require('../server.js');
+// require('../server.js');
 
 describe('Data routes', function() {
   var data = null;
