@@ -31,13 +31,13 @@ Making a POST request
 * Run `http POST localhost:<PORT>/api/artist name='<name>' genre='<genre>'`
 * This will update the Artist object to show `name:` `genre:` and `id:`
 * You will also receive a status code of 200.
-* Example
-`HTTP/1.1 200 OK
+Example
+* `HTTP/1.1 200 OK
 Connection: keep-alive
 Content-Type: application/json
 Date: Fri, 16 Dec 2016 17:41:21 GMT
 Transfer-Encoding: chunked`
-`{
+* `{
     "genre": "Punk",
     "id": "db41b700-c3b6-11e6-9f26-b925a6666a4c",
     "name": "Blink-182"
@@ -52,8 +52,8 @@ Making a DELETE request
 * Run `http DELETE localhost:<PORT>/api/artist?id=<id>`
 * This will delete the Artist with the id you pass in
 * You will receive a status code of 204 No Content
-* Example:
-`HTTP/1.1 204 No Content
+Example:
+* `HTTP/1.1 204 No Content
 Connection: keep-alive
 Content-Type: application/json
 Date: Fri, 16 Dec 2016 17:44:38 GMT`
