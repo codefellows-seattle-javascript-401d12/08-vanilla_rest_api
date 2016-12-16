@@ -22,7 +22,7 @@ exports.getItem = function(schemaName, id) {
   if (!id) return Promise.reject(new Error('No ID provided.'));
 
   return fs.readFileProm(`${__dirname}/../data/${schemaName}/${id}.json`)
-  .then(data => Promise.resolve(data))
+  .then(data => Promise.resolve(data.toString()))
   .catch(err => Promise.reject(err));
 };
 
@@ -37,6 +37,6 @@ exports.deleteItem = function(schemaName, id) {
 
 exports.getAllItems = function(schemaName) {
   return fs.readdirProm(`${__dirname}/../data/${schemaName}`)
-  .then(arrayOfFiles => Promise.resolve(arrayOfFiles))
+  .then(arrayOfFiles => Promise.resolve(arrayOfFiles.toString()))
   .catch(err => Promise.reject(err));
 };
