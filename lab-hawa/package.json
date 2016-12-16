@@ -23,7 +23,6 @@
   "homepage": "https://github.com/abdih17/08-vanilla_rest_api#readme",
   "dependencies": {
     "chai": "^3.5.0",
-    "chia": "0.0.1",
     "node-uuid": "^1.4.7",
     "superagent": "^3.3.0"
   },

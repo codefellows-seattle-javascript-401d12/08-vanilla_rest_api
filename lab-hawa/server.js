@@ -1,20 +1,20 @@
 'use strict';
 
 const http = require('http');
-const Note = require('./model/note.js');
+const SpiritAnimal = require('./model/spiritAnimal.js');
 const Router = require('./lib/router.js');
 const storage = require('./lib/storage.js');
 const PORT = process.env.PORT || 3000;
 const router = new Router();
 
-router.get('/api/note', function(req, res) {
+router.get('/api/spiritAnimal', function(req, res) {
   if (req.url.query.id) {
-    storage.fetchItem('note', req.url.query.id)
-    .then( note => {
+    storage.fetchItem('spiritAnimal', req.url.query.id)
+    .then( spiritAnimal => {
       res.writeHead(200, {
         'Content-Type': 'application/json'
       });
-      res.write(JSON.stringify(note));
+      res.write(JSON.stringify(spiritAnimal));
       res.end();
     })
     .catch( err => {
@@ -28,22 +28,23 @@ router.get('/api/note', function(req, res) {
 
     return;
   }
-
-  res.writeHead(400, {
-    'Content-Type': 'text/plain'
-  });
-  res.write('bad request');
-  res.end();
+  if(!req.url.query.id) {
+    res.writeHead(400, {
+      'Content-Type': 'text/plain'
+    });
+    res.write('bad request');
+    res.end();
+  }
 });
 
-router.post('/api/note', function(req, res) {
+router.post('/api/spiritAnimal', function(req, res) {
   try {
-    var note = new Note(req.body.name, req.body.content);
-    storage.createItem('note', note);
+    var spiritAnimal = new SpiritAnimal(req.body.name, req.body.spiritAnimal, req.body.spiritAnimalName);
+    storage.createItem('spiritAnimal', spiritAnimal);
     res.writeHead(200, {
       'Content-Type': 'application/json'
     });
-    res.write(JSON.stringify(note));
+    res.write(JSON.stringify(spiritAnimal));
     res.end();
   } catch (err) {
     console.error(err);
@@ -52,6 +53,28 @@ router.post('/api/note', function(req, res) {
     });
     res.write('bad request');
     res.end();
+  }
+});
+
+router.delete('/api/spiritAnimal', function(req, res) {
+  if(req.url.query.id) {
+    storage.deleteItem('spiritAnimal', req.url.query.id)
+    .then ( spiritAnimal => {
+      res.writeHead(204, {
+        'Content-Type': 'application/json'
+      });
+      res.write(JSON.stringify(spiritAnimal));
+      res.end();
+    })
+    .catch(err => {
+      console.error(err);
+      res.writeHead(404, {
+        'Content-Type': 'text/plain'
+      });
+      res.write('spirit animal not found');
+      res.end();
+    });
+    return;
   }
 });
 
