@@ -2,21 +2,17 @@
 
 const Student = require('../model/student-constructor.js');
 const storage = require('../lib/storage.js');
+const respond = require('../lib/respond.js');
 
 module.exports = function(router) {
   router.get('/api/student', (request, response) => {
     if (request.url.query.id) {
       storage.getItem('student', request.url.query.id)
       .then(student => {
-        response.writeHead(200, {'Content-Type': 'application/json'});
-        response.write(JSON.stringify(student));
-        response.end();
+        respond.sendJSON(response, 200, student);
       })
       .catch(err => {
-        console.error(err);
-        response.writeHead(404, {'Content-Type': 'text/plain'});
-        response.write('Student not found.');
-        response.end();
+        respond.sendText(response, 404, 'Student not found.', err);
       });
       return;
     }
