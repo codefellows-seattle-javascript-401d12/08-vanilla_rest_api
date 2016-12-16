@@ -41,7 +41,7 @@ router.get('/api/note', function(req, res) {
 //Logic: Method: POST
 router.post('/api/note', function(req, res) {
   try {
-    var note = new Note(req.body.name, req.body.content);
+    var note = new Note(req.body.restaurantname, req.body.address);
     storage.createItem('note', note);
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.write(JSON.stringify(note));

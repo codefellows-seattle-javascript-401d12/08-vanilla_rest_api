@@ -2,11 +2,11 @@
 
 const uuid = require('node-uuid');
 
-module.exports = function(name, content) {
-  if (!name) throw new Error('expected name');
-  if (!content) throw new Error('expected content');
+module.exports = function(restaurantname, address) {
+  if (!restaurantname) throw new Error('expected restaurant name');
+  if (!address) throw new Error('expected address');
 
   this.id = uuid.v1();
-  this.name = name;
-  this.content = content;
+  this.restaurantname = restaurantname;
+  this.address = address;
 };
