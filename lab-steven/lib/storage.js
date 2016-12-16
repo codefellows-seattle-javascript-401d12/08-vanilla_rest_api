@@ -12,7 +12,7 @@ exports.createItem = function(schemaName, item) {
   if (!item.name) return Promise.reject(new Error('Student has no name field.'));
 
   var data = JSON.stringify(item);
-  fs.writeFileProm(`${__dirname}/../data/${schemaName}/${item.id}.json`, data)
+  return fs.writeFileProm(`${__dirname}/../data/${schemaName}/${item.id}.json`, data)
   .then(() => Promise.resolve(data))
   .catch(err => Promise.reject(err));
 };
@@ -21,7 +21,7 @@ exports.getItem = function(schemaName, id) {
   if (!schemaName) return Promise.reject(new Error('No schema name provided.'));
   if (!id) return Promise.reject(new Error('No ID provided.'));
 
-  fs.readFileProm(`${__dirname}/../data/${schemaName}/${id}.json`)
+  return fs.readFileProm(`${__dirname}/../data/${schemaName}/${id}.json`)
   .then(data => Promise.resolve(data))
   .catch(err => Promise.reject(err));
 };
@@ -30,13 +30,13 @@ exports.deleteItem = function(schemaName, id) {
   if (!schemaName) return Promise.reject(new Error('No schema name provided.'));
   if (!id) return Promise.reject(new Error('No ID provided.'));
 
-  fs.unlinkProm(`${__dirname}/../data/${schemaName}/${id}.json`)
+  return fs.unlinkProm(`${__dirname}/../data/${schemaName}/${id}.json`)
   .then(() => Promise.resolve())
   .catch(err => Promise.reject(err));
 };
 
 exports.getAllItems = function(schemaName) {
-  fs.readdirProm(`${__dirname}/../data/${schemaName}`)
+  return fs.readdirProm(`${__dirname}/../data/${schemaName}`)
   .then(arrayOfFiles => Promise.resolve(arrayOfFiles))
   .catch(err => Promise.reject(err));
 };
