@@ -46,11 +46,12 @@ Router.prototype.route = function() {
       let msg = `route not found: ${req.method} ${req.url.pathname}`;
       console.error(msg);
 
-      res.err(404, msg);
+      res.text(404, 'not found'); //Or is msg better?
     })
     .catch( err => {
       console.error(err);
-      res.err(400, 'bad request');
+      // res.err(400, 'bad request');
+      res.text(400, 'bad request');
     });
   };
 };
