@@ -2,7 +2,8 @@
 
 const http = require('http');
 const Router = require('./lib/router.js');
-const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 const router = new Router();
 
 require('./route/artist-route.js')(router);

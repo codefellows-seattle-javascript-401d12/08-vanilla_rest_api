@@ -39,7 +39,6 @@ module.exports = function(router) {
       .then( () => {
         response.sendJSON(res, 204);
         console.log('artist deleted');
-
       })
       .catch(err => {
         console.error(err);
