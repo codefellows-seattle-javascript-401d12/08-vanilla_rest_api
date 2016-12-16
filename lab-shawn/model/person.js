@@ -9,4 +9,4 @@ module.exports = function(name, gender){
   this.id = uuid.v1();
   this.name = name;
   this.gender = gender;
-}
+};
