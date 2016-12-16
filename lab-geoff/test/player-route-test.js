@@ -94,17 +94,6 @@ describe('Player Routes', function() {
           done();
         });
       });
-      // .then( res => {
-      //   expect(res.status).to.equal(204);
-      //   return request.get(`localhost:5555/api/player?id=${player.id}`);
-      // })
-      // .then( res => {
-      //   expect(res.status).to.equal(404);
-      //   done();
-      // })
-      // .catch( err => {
-      //   done(err);
-      // });
     });
   });
 
