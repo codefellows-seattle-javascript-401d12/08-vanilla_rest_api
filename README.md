@@ -1,6 +1,6 @@
 # Vanilla REST API
 
-## General description
+## Overview
 
 This is a basic API app that allows a developer to POST, GET and DELETE data from an API. A developer should be able to see the appropriate response statuses when interacting with the API.
 
@@ -10,16 +10,15 @@ This is a basic API app that allows a developer to POST, GET and DELETE data fro
 
 * You will also need to run the command `brew install httpie`. For this app, the requests used in the terminal are formatted via HTTPie CLI.
 
-* Open 2 panes in your terminal to see how you, as the developer, can interact with this server.
+* Open 2 panes in your terminal to get started.
 
 * Be sure that you are in the root of the repo directory before attempting to initiate the port to the server. To do this, run `node server.js` in the first terminal pane.
   * `server running:` followed by your PORT number should be logged in the terminal
 
-
 ### POST requests
   * **i.e.** 200 OK request: `http POST localhost:8000/api/pin title="sample title" skill="sample skill"`
     * You should receive a response with the content of the appropriate pin you just posted.
-  * **i.e.** 400 BAD request: `http POST localhost:8000/api/pin` (no title and/or skill is attached to POST request)
+  * **i.e.** 400 BAD request: `http POST localhost:8000/api/pin` (no title and skill is attached to POST request)
     * You should receive a response with a 'bad request' message.
 
 ### GET requests
@@ -35,4 +34,4 @@ This is a basic API app that allows a developer to POST, GET and DELETE data fro
   * **i.e.** 400 BAD request: `http localhost:8000/api/pin`
     * You should receive a response with a 'bad request' message.
 
-GET, POST and DELETE request commands should be run in the second terminal pane. Updated content from each request will be logged in the first pane of your terminal.
+GET, POST and DELETE request commands should be run in the second terminal pane. JSON files should be posted and deleted from the `/data/pin` folder depending on your terminal commands.
