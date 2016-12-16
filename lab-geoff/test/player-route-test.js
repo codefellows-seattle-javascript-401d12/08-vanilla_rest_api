@@ -5,6 +5,8 @@ const expect  = require('chai').expect;
 
 require('../server.js');
 
+const PORT = process.env.PORT || 5555;
+
 describe('Player Routes', function() {
   var player = null;
 
@@ -12,7 +14,7 @@ describe('Player Routes', function() {
     it('should return a player', function(done) {
       let name = 'Geoff Simons';
       let email = 'geoff@example.com';
-      request.post('localhost:5555/api/player')
+      request.post(`localhost:${PORT}/api/player`)
       .send({ name: name, email: email})
       .end( (err, res) => {
         if(err) return done(err);
@@ -26,7 +28,7 @@ describe('Player Routes', function() {
     });
 
     it('should 400 with non-conforming body', function(done) {
-      request.post('localhost:5555/api/player')
+      request.post(`localhost:${PORT}/api/player`)
       .send({ name: 'Me'})
       .end( (err, res) => {
         expect(res.status).to.equal(400);
@@ -37,7 +39,7 @@ describe('Player Routes', function() {
 
   describe('GET: /api/player', function() {
     it('should return a player', function(done) {
-      request.get(`localhost:5555/api/player?id=${player.id}`)
+      request.get(`localhost:${PORT}/api/player?id=${player.id}`)
       .end( (err, res) => {
         if(err) return done(err);
         expect(res.status).to.equal(200);
@@ -47,7 +49,7 @@ describe('Player Routes', function() {
     });
 
     it('should 404 on unknown player', function(done) {
-      request.get('localhost:5555/api/player?id=not-a-real-id')
+      request.get(`localhost:${PORT}/api/player?id=not-a-real-id`)
       .end( (err, res) => {
         expect(res.status).to.equal(404);
         done();
@@ -55,7 +57,7 @@ describe('Player Routes', function() {
     });
 
     it('should 400 on missing id', function(done) {
-      request.get('localhost:5555/api/player')
+      request.get(`localhost:${PORT}/api/player`)
       .end( (err, res) => {
         expect(res.status).to.equal(400);
         done();
@@ -65,7 +67,7 @@ describe('Player Routes', function() {
 
   describe('GET: /a/bogus/route', function() {
     it('should 404 not found', function(done) {
-      request.get('localhost:5555/a/bogus/route')
+      request.get(`localhost:${PORT}/a/bogus/route`)
       .end( (err, res) => {
         expect(res.status).to.equal(404);
         done();
@@ -75,12 +77,12 @@ describe('Player Routes', function() {
 
   describe('DELETE: /api/player', function() {
     it('should delete a player', function(done) {
-      request.delete(`localhost:5555/api/player?id=${player.id}`)
+      request.delete(`localhost:${PORT}/api/player?id=${player.id}`)
       .end( (err, res) => {
         if(err) return done(err);
         expect(res.status).to.equal(204);
 
-        request.get(`localhost:5555/api/player?id=${player.id}`)
+        request.get(`localhost:${PORT}/api/player?id=${player.id}`)
         .end( (err, res) => {
           expect(res.status).to.equal(404);
           done();
