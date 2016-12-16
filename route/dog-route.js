@@ -30,18 +30,16 @@ module.exports = function(router) {
       response.sendText(res, 400, 'bad request');
     }
   });
+
   router.delete('/api/dog', function(req, res) {
     if(req.url.query.id) {
-      storage.deleteItem('dog', req.url.query.id)
-      .then( dog => {
-        response.sendJSON(res, 200, dog);
-        res.write('Deleted dog');
-        res.end();
-      })
-      .catch( err => {
+      try {
+        storage.deleteItem('dog', req.url.query.id);
+        response.sendText(res, 204, 'deleted dog');
+      } catch(err) {
         console.log(err);
         response.sendText(res, 404, 'not found');
-      });
+      }
       return;
     }
     response.sendText(res, 400, 'bad request');
