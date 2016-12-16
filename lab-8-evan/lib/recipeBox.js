@@ -28,6 +28,22 @@ exports.getRecipe = function(schemaName, id) {
     resolve(recipe);
   });
 };
+// WORKING ON GETTING ALL RECIPES BACK ----------------------------
+// exports.getAllRecipes = function(schemaName, id) {
+//   return new Promise((resolve, reject) => {
+//     if(!schemaName) return reject(new Error('expected a schema name'));
+//     if(!id) return reject(new Error('expected an id'));
+//
+//     var schema = recipeBox[schemaName];
+//     if(!schema) return reject(new Error('no schema found'));
+//
+//     var recipes = recipeBox;
+//     console.log(recipes);
+//
+//     resolve(recipes);
+//   });
+// };
+// WORKING ON GETTING ALL RECIPES BACK ----------------------------
 
 exports.deleteRecipe = function(schemaName, id) {
   return new Promise((resolve, reject) => {

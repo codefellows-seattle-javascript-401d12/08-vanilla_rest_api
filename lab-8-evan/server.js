@@ -27,15 +27,15 @@ router.get('/api/recipe', function(req, res) {
     });
 
     return;
-  };
-
-  res.writeHead(400, {
-    'Content-Type': 'text/plain'
-  });
-  res.write('bad request');
-  res.end();
+  }
+  else {
+    res.writeHead(400, {
+      'Content-Type': 'text/plain'
+    });
+    res.write('bad request');
+    res.end();
+  }
 });
-
 router.post('/api/recipe', function(req, res) {
   try {
     var recipe = new Recipe(req.body.name, req.body.ingredients, req.body.category);
@@ -53,7 +53,7 @@ router.post('/api/recipe', function(req, res) {
     });
     res.write('bad request');
     res.end();
-  };
+  }
 });
 // DELETE---------------------------------------
 router.delete('/api/recipe', function(req, res) {
@@ -74,7 +74,7 @@ router.delete('/api/recipe', function(req, res) {
       res.write('bad request');
       res.end();
     });
-  };
+  }
 });
 // DELETE---------------------------------------
 const server = http.createServer(router.route());

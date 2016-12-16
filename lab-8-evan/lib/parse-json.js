@@ -17,7 +17,7 @@ module.exports = function(req) {
         catch(err) {
           console.error(err);
           reject(err);
-        };
+        }
       });
 
       req.on('error', err => {
@@ -26,8 +26,8 @@ module.exports = function(req) {
       });
 
       return;
-    };
+    }
 
-    resolve()
+    resolve();
   });
 };
