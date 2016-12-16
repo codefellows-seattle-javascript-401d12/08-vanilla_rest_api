@@ -3,10 +3,9 @@
 const request = require('superagent');
 const expect = require('chai').expect;
 
-//require('../server.js');
+var testJoke = {setup: 'I just flew in from Chernobyl', punchline: 'and boy, are my arms legs!'};
 
 describe('Route: /api/joke', function() {
-  var testJoke = {setup: 'I just flew in from Chernobyl', punchline: 'and boy, are my arms legs!'};
 
   describe('GETing a nonexistent joke', function() {
     it('should return status 404 and body "not found"', function (done) {
@@ -74,4 +73,5 @@ describe('Route: /api/joke', function() {
       });
     });
   });
+  
 });

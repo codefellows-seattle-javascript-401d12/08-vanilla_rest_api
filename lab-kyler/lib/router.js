@@ -14,6 +14,7 @@ const Router = module.exports = function() {
 
 Router.prototype.route = function() {
   return (req, res) => {
+
     Promise.all([
       urlparser(req),
       bodyparser(req),
@@ -23,7 +24,6 @@ Router.prototype.route = function() {
         this.routes[req.method][req.url.pathname](req,res);
         return;
       }
-
       console.error(`URL ${req.url.pathname} not found.`);
       res.writeHead(404, {'Content-Type': 'text/plain'});
       res.write(`URL ${req.url.pathname} not found.`);
@@ -35,6 +35,7 @@ Router.prototype.route = function() {
       res.write('bad request');
       res.end();
     });
+
   };
 };
 
