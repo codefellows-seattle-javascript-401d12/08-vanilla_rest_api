@@ -32,9 +32,5 @@ exports.deleteItem = function(schemaName, id){
     if (!schemaName) return reject(new Error('expected schema name'));
     if (!id) return reject(new Error('expected id'));
 
-    if(!storage[schemaName]) return reject(new Error('schema not found'));
-    if(!storage[schemaName][id]) return reject(new Error('item not found'));
-
-    if(storage[schemaName][id]) resolve(delete (storage[schemaName][id]));
-  });
+    return fs.unlinkProm(`${__dirname}/../data/${schemaName}/${item.id}.json`, json);
 };
