@@ -1,5 +1,7 @@
 'use strict';
 
+const Promise = require('bluebird');
+const fs = Promise.promisify(require('fs'), {suffix: 'Prom'});
 const storage = {};
 
 module.exports = exports = {};
@@ -9,11 +11,12 @@ exports.createItem = function(schemaName, item) {
   if (!item) return Promise.reject(new Error('No item provided.'));
   if (!item.age) return Promise.reject(new Error('Student has no age field.'));
   if (!item.name) return Promise.reject(new Error('Student has no name field.'));
-  if (!storage[schemaName]) storage[schemaName] = {};
 
-  storage[schemaName][item.id] = item;
-
-  return Promise.resolve(item);
+  fs.writeFileProm(`${__dirname}/../data/${schemaName}/${item.id}.json`)
+  .then()
+  .catch(err => {
+    Promise.reject(err);
+  });
 };
 
 exports.getItem = function(schemaName, id) {
