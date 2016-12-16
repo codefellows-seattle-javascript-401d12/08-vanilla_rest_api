@@ -16,7 +16,6 @@ exports.storeItem = (schema, item) => {
 };
 
 exports.fetchItem = (schema, id) => {
-  console.log('schema:', schema);
   return new Promise((resolve, reject) => {
     if (!schema) return reject(new Error('no schema'));
     if (!id) return resolve(Object.keys(storage[schema]));
