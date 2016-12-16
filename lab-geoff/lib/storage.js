@@ -6,8 +6,6 @@ const fs = Promise.promisifyAll(require('fs'), {suffix: 'Prom'});
 
 module.exports = exports = {};
 
-const storage = {};
-
 exports.createItem = function(collection, item) {
   if(!collection) return Promise.reject(new Error('collection name not supplied'));
   if(!item) return Promise.reject(new Error('missing item to create'));
@@ -18,11 +16,6 @@ exports.createItem = function(collection, item) {
   return fs.writeFileProm(`./data/${collection}/${item.id}.json`, json)
   .then( () => item)
   .catch( err => Promise.reject(err));
-
-  // if(!storage[collection]) storage[collection] = {};
-  //
-  // storage[collection][item.id] = item;
-  // return Promise.resolve(item);
 };
 
 exports.fetchItem = function(collection, id) {
@@ -42,14 +35,4 @@ exports.deleteItem = function(collection, id) {
   if(!id) return Promise.reject(new Error('missing id'));
 
   return fs.unlinkProm(`./data/${collection}/${id}.json`);
-
-  // var all = storage[collection];
-  // if(!all) return Promise.reject(new Error(`collection ${collection} does not exist`));
-  //
-  // var item = all[id];
-  // if(!item) return Promise.reject(new Error(`could not find ${id}`));
-  //
-  // delete all[id];
-  //
-  // resolve(item); //Giving back the removed item
 };
