@@ -2,7 +2,6 @@
 
 const Promise = require('bluebird');
 const fs = Promise.promisify(require('fs'), {suffix: 'Prom'});
-const storage = {};
 
 module.exports = exports = {};
 
@@ -31,12 +30,13 @@ exports.deleteItem = function(schemaName, id) {
   if (!schemaName) return Promise.reject(new Error('No schema name provided.'));
   if (!id) return Promise.reject(new Error('No ID provided.'));
 
-  fs.readdirProm(`${__dirname}/../data/${schemaName}`)
-  .then(arrayOfFiles => Promise.resolve(arrayOfFiles))
+  fs.unlinkProm(`${__dirname}/../data/${schemaName}/${id}.json`)
+  .then(() => Promise.resolve())
   .catch(err => Promise.reject(err));
 };
 
-exports.getAllItems = function() {
-  var allIds = Object.keys(storage['student']);
-  return Promise.resolve(allIds);
+exports.getAllItems = function(schemaName) {
+  fs.readdirProm(`${__dirname}/../data/${schemaName}`)
+  .then(arrayOfFiles => Promise.resolve(arrayOfFiles))
+  .catch(err => Promise.reject(err));
 };

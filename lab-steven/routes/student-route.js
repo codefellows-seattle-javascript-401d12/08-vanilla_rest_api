@@ -16,7 +16,7 @@ module.exports = function(router) {
       });
       return;
     }
-    storage.getAllItems()
+    storage.getAllItems('student')
     .then(allIds => {
       respond.sendJSON(response, 200, allIds);
     });
