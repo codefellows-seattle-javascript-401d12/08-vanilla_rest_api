@@ -78,7 +78,7 @@ describe ('Student routes', () => {
         if (err) return done(err);
         expect(response.status).to.equal(200);
         expect(response.body).to.be.an('array');
-        expect(response.body).to.have.length.above(1);
+        expect(response.body).to.have.length(1);
         done();
       });
     });
