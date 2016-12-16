@@ -1,7 +1,7 @@
 
 # Created by https://www.gitignore.io/api/node,macos,vim,windows,linux
 
-data
+data/player/*.json
 
 ### Node ###
 node_modules
