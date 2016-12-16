@@ -16,22 +16,22 @@ This is a basic API app that allows a developer to POST, GET and DELETE data fro
   * `server running:` followed by your PORT number should be logged in the terminal
 
 ### POST requests
-  * **i.e.** 200 OK request: `http POST localhost:8000/api/pin title="sample title" skill="sample skill"`
+  * **i.e.** 200 OK request: `http POST localhost:3000/api/pin title="sample title" skill="sample skill"`
     * You should receive a response with the content of the appropriate pin you just posted.
-  * **i.e.** 400 BAD request: `http POST localhost:8000/api/pin` (no title and skill is attached to POST request)
+  * **i.e.** 400 BAD request: `http POST localhost:3000/api/pin` (no title and skill is attached to POST request)
     * You should receive a response with a 'bad request' message.
 
 ### GET requests
-  * **i.e.** 200 OK request: `http localhost:8000/api/pin?id=17b389b0-c2ff-11e6-9794-69f9c8e1c4f5`
+  * **i.e.** 200 OK request: `http localhost:3000/api/pin?id=17b389b0-c2ff-11e6-9794-69f9c8e1c4f5`
     * You must pass in a query string equal to the unique id of the pin you want to retrieve.
     * You should receive a response with the content of the appropriate pin.
-  * **i.e.** 400 BAD request: `http localhost:8000/api/pin`
+  * **i.e.** 400 BAD request: `http localhost:3000/api/pin`
     * You should receive a response with a 'bad request' message.
 
 ### DELETE requests
-  * **i.e.** 204 No Content request: `http DELETE localhost:8000/api/pin?id=69df11c0-c2fd-11e6-8512-d5d43d0553c1`
+  * **i.e.** 204 No Content request: `http DELETE localhost:3000/api/pin?id=69df11c0-c2fd-11e6-8512-d5d43d0553c1`
     * You must pass in a query string equal to the unique id of the pin you want to delete.
-  * **i.e.** 400 BAD request: `http localhost:8000/api/pin`
+  * **i.e.** 400 BAD request: `http localhost:3000/api/pin`
     * You should receive a response with a 'bad request' message.
 
 GET, POST and DELETE request commands should be run in the second terminal pane. JSON files should be posted and deleted from the `/data/pin` folder depending on your terminal commands.
