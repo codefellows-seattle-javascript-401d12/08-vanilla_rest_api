@@ -1,7 +1,7 @@
 'use strict';
 
 const Promise = require('bluebird');
-const fs = Promise.promisify(require('fs'), {suffix: 'Prom'});
+const fs = Promise.promisifyAll(require('fs'), {suffix: 'Prom'});
 
 module.exports = exports = {};
 
