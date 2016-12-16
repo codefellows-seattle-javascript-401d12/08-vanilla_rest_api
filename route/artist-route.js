@@ -1,66 +1,49 @@
 'use strict';
 
-const Artist = require('./model/music-artists.js');
 const storage = require('./lib/storage.js');
+const Artist = require('./model/music-artists.js');
+const response = require('../lib/response.js');
 
 module.exports = function(router) {
 
-  router.get('/api/artist', function (request, response) {
+  router.get('/api/artist', function (request, res) {
     if (request.url.query.id) {
       storage.fetchItem('artist', request.url.query.id)
       .then( artist => {
-        response.writeHead(200, {
-          'Content-Type': 'application/json'
-        });
-        response.write(JSON.stringify(artist));
-        response.end();
+        response.sendJSON(res, 200, artist);
       })
       .catch( err => {
         console.error(err);
-        response.writeHead(404, {
-          'Content-Type': 'text/plain'
-        });
-        response.write('not found');
-        response.end();
+        response.sendText(res, 404, 'not found');
       });
       return;
     }
+    response.sendText(res, 400, 'bad request');
   });
 
-  router.post('/api/artist', function(request, response) {
+  router.post('/api/artist', function(request, res) {
     try {
       console.log(request.body);
       var artist = new Artist(request.body.name, request.body.genre);
       storage.createItem('artist', artist);
-      response.writeHead(200, {
-        'Content-Type': 'application/json'
-      });
-      response.write(JSON.stringify(artist));
-      response.end();
+      response.sendJSON(res, 200, artist);
     } catch (err) {
       console.error(err);
-      response.writeHead(400, {
-        'Content-Type': 'text/plain'
-      });
-      response.write('bad request');
-      response.end();
+      response.sendText(res, 400, 'bad request');
     }
   });
 
-  router.delete('/api/artist', function(request, response) {
+  router.delete('/api/artist', function(request, res) {
     if (request.url.query.id) {
       storage.deleteItem('artist', request.url.query.id)
       .then( () => {
-        response.writeHead(204);
+        response.sendJSON(res, 204);
         console.log('artist deleted');
-        response.end();
+
       })
       .catch(err => {
         console.error(err);
-        response.writeHead(404, {
-          'Content-Type': 'text/plain'
-        });
-        response.write('No Artist found');
+        response.sendText(res, 404, 'not found');
       });
       return;
     }
