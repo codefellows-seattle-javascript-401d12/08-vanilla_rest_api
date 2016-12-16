@@ -4,7 +4,11 @@ module.exports = exports = {};
 
 exports.sendJSON = function(response, status, data) {
   response.writeHead(status, {'Content-Type': 'application/json'});
-  response.end(JSON.stringify(data));
+  if (data) {
+    response.end(JSON.stringify(data));
+    return;
+  }
+  response.end();
 };
 
 exports.sendText = function(response, status, errorMessage, error) {

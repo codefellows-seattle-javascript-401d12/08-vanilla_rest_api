@@ -18,9 +18,7 @@ module.exports = function(router) {
     }
     storage.getAllItems()
     .then(allIds => {
-      response.writeHead(200, {'Content-Type': 'application/json'});
-      response.write(JSON.stringify(allIds));
-      response.end();
+      respond.sendJSON(response, 200, allIds);
     });
   });
 
@@ -28,15 +26,10 @@ module.exports = function(router) {
     var student = new Student(request.body);
     storage.createItem('student', student)
     .then(student => {
-      response.writeHead(200, {'Content-Type': 'application/json'});
-      response.write(JSON.stringify(student));
-      response.end();
+      respond.sendJSON(response, 200, student);
     })
     .catch(err => {
-      console.error(err);
-      response.writeHead(400, {'Content-Type': 'text/plain'});
-      response.write('Bad request.');
-      response.end();
+      respond.sendText(response, 400, 'Bad request.', err);
     });
   });
 
@@ -44,13 +37,10 @@ module.exports = function(router) {
     if (request.url.query.id) {
       storage.deleteItem('student', request.url.query.id)
       .then(() => {
-        response.writeHead(204);
-        response.end();
+        respond.sendJSON(response, 204);
       })
       .catch(err => {
-        console.error(err);
-        response.writeHead(404, {'Content-Type': 'text/plain'});
-        response.write('Student not found.');
+        respond.sendText(response, 404, 'Student not found.', err);
       });
       return;
     }
