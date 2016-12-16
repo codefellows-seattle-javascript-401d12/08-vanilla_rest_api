@@ -66,4 +66,14 @@ describe('Dog Routes', function() {
     });
   });
 
+  describe('DELETE: /api/dog', function() {
+    it('should delete dog', function(done) {
+      request.delete(`localhost:8000/api/dog?id=${dog.id}`)
+      .end((err, res) => {
+        if(err) return done(err);
+        expect(res.status).to.equal(204);
+      });
+    });
+  });
+
 });
