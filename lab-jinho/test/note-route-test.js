@@ -15,7 +15,7 @@ describe('Note Routes', function() {
       .send({invalid:'invalid body'})
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.text).to.be.equal('bad request');
+        expect(res.text).to.equal('bad request');
         done();
       });
     });
@@ -35,7 +35,6 @@ describe('Note Routes', function() {
       });
     });
   });
-
 //GET: test 404 should respond with 'not found' for valid requests made with id not found
   describe('GET: /api/note', function(){
     it('return error for no id valid request - GET', function(done){
@@ -47,7 +46,6 @@ describe('Note Routes', function() {
       });
     });
   });
-
 //GET: test 400 should respond with 'bad request' if no id was provided in request
   describe('GET: /api/note', function(){
     it('return error with no id - GET', function(done){
