@@ -37,4 +37,16 @@ describe('Spirit Animal Routes', function() {
       });
     });
   });
+
+  describe('DELETE: /api/spiritAnimal', function() {
+    it('should return no content', function(done) {
+      request.delete(`localhost:3000/api/spiritAnimal?id=${spiritAnimal.id}`)
+      .end((err, res) => {
+        expect(res.status).to.equal(204);
+        expect(res.body.title).to.equal(undefined);
+        expect(res.body.skill).to.equal(undefined);
+        done();
+      });
+    });
+  });
 });
