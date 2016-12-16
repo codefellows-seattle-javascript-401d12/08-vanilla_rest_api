@@ -20,6 +20,14 @@ describe('Pin Routes', function() {
         done();
       });
     });
+    it('should return a 400 bad request error', function(done) {
+      request.post('localhost:8000/api/pin')
+      .send({title: 'test title'})
+      .end((res) => {
+        expect(res.status).to.equal(400);
+        done();
+      });
+    });
   });
 
   describe('GET: /api/pin', function() {
@@ -33,10 +41,24 @@ describe('Pin Routes', function() {
         done();
       });
     });
+    it('should return a 404 pin not found error', function(done) {
+      request.get('localhost:8000/api/pin?id==513dh46ef')
+      .end((res) => {
+        expect(res.status).to.equal(404);
+        done();
+      });
+    });
+    it('should return a 400 bad request error', function(done) {
+      request.get('localhost:8000/api/pin')
+      .end((res) => {
+        expect(res.status).to.equal(400);
+        done();
+      });
+    });
   });
 
   describe('DELETE: /api/pin', function() {
-    it('should return No Content', function(done) {
+    it('should return no pin content', function(done) {
       request.delete(`localhost:8000/api/pin?id=${pin.id}`)
       .end((err, res) => {
         expect(res.status).to.equal(204);

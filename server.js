@@ -27,6 +27,13 @@ router.get('/api/pin', function(req, res) {
     });
     return;
   }
+  if (!req.url.query.id) {
+    res.writeHead(400, {
+      'Content-Type': 'text/plain'
+    });
+    res.write('bad request');
+    res.end();
+  }
 });
 
 router.post('/api/pin', function(req, res) {
