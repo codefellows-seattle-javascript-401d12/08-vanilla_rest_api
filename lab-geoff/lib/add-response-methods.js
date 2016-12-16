@@ -19,12 +19,6 @@ module.exports = function(res) {
     this.end();
   };
 
-  // res.send = function(msg) {
-  //   res.writeHead(res.status || 200, res.statusMessage || 'OK', res.headers);
-  //   res.write(msg + '\n');
-  //   res.end();
-  // };
-
   res.json = function(status, obj) {
     //TODO: If arguments[0] is an object, status = 200.
     this.type('application/json');
@@ -32,18 +26,6 @@ module.exports = function(res) {
     this.write(JSON.stringify(obj));
     this.end();
   };
-
-  // res.err = function(status, message) {
-  //   res.status  = status  || 500;
-  //   message = message || 'Internal server error';
-  //   res.statusMessage = message;
-  //
-  //   this.send(message);
-  // };
-
-  // res.headers = {
-  //   'Content-Type': 'text/plain'
-  // };
 
   return Promise.resolve(res);
 };
