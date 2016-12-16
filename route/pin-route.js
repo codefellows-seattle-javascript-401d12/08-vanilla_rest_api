@@ -2,35 +2,23 @@
 
 const storage = require('../lib/storage.js');
 const Pin = require('../model/pin.js');
-// const response = require('../lib/response.js');
+const response = require('../lib/response.js');
 
 module.exports = function(router) {
   router.get('/api/pin', function(req, res) {
     if (req.url.query.id) {
       storage.fetchItem('pin', req.url.query.id)
       .then(pin => {
-        res.writeHead(200, {
-          'Content-Type': 'application/json'
-        });
-        res.write(JSON.stringify(pin));
-        res.end();
+        response.sendJSON(res, 200, pin);
       })
       .catch(err => {
         console.error(err);
-        res.writeHead(404, {
-          'Content-Type': 'text/plain'
-        });
-        res.write('not found');
-        res.end();
+        response.sendText(res, 404, 'pin not found');
       });
       return;
     }
     if (!req.url.query.id) {
-      res.writeHead(400, {
-        'Content-Type': 'text/plain'
-      });
-      res.write('bad request');
-      res.end();
+      response.sendText(res, 400, 'bad request');
     }
   });
 
@@ -38,18 +26,10 @@ module.exports = function(router) {
     try {
       var pin = new Pin(req.body.title, req.body.skill);
       storage.createItem('pin', pin);
-      res.writeHead(200, {
-        'Content-Type': 'application/json'
-      });
-      res.write(JSON.stringify(pin));
-      res.end();
+      response.sendJSON(res, 200, pin);
     } catch (err) {
       console.error(err);
-      res.writeHead(400, {
-        'Content-Type': 'text/plain'
-      });
-      res.write('bad request');
-      res.end();
+      response.sendText(res, 400, 'bad request');
     }
   });
 
@@ -62,11 +42,7 @@ module.exports = function(router) {
       })
       .catch(err => {
         console.error(err);
-        res.writeHead(404, {
-          'Content-Type': 'text/plain'
-        });
-        res.write('pin not found');
-        res.end();
+        response.sendText(res, 404, 'pin not found');
       });
       return;
     }
