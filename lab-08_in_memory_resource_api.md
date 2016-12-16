@@ -18,11 +18,11 @@
   * `README.md`
 
 ## Description
-* Create the following directories to organize your code:
-  * `lib`
-  * `model`
-  * `test`
-* Create an HTTP server using the native NodeJS `http` module
+* [x] Create the following directories to organize your code:
+  * [x] `lib`
+  * [x] `model`
+  * [x] `test`
+* [x] Create an HTTP server using the native NodeJS `http` module
 * Create an object constructor that creates a _simple resource_ with at least 3 properties
   * include an `id` property that is set to a unique id (**hint:** you'll need to use `node-uuid`)
   * include two additional properties of your choice (ex: name, content, etc.)
