@@ -28,7 +28,28 @@ router.get('/api/bev', function(req, res) {
     });
 
     return;
-  }
+  };
+
+  if (req.url && !req.url.query.id) {
+    storage.fetchAll('bev')
+    .then( bev => {
+      res.writeHead(200, {
+        'Content-Type': 'application/json'
+      });
+      res.write(JSON.stringify(bev));
+      res.end();
+    })
+    .catch( err => {
+      console.error(err);
+      res.writeHead(404, {
+        'Content-Type': 'text/plain'
+      });
+      res.write('resource not found');
+      res.end();
+    });
+
+    return;
+  };
 });
 
 router.post('/api/bev', function(req, res) {
