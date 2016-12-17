@@ -51,6 +51,27 @@ router.post('/api/bev', function(req, res) {
   }
 });
 
+router.delete('/api/bev', function(req, res) {
+  if (req.url.query.id) {
+    storage.deleteEntry('bev', req.url.query.id)
+    .then( bev => {
+      res.writeHead(200, {
+        'Content-Type': 'text/plain'
+      });
+      res.write('resource deleted');
+      res.end();
+    })
+    .catch( err => {
+      console.error(err);
+      res.writeHead(404, {
+        'Content-Type': 'text/plain'
+      });
+      res.write('resource not found');
+      res.end();
+    });
+  }
+});
+
 const server = http.createServer(router.route());
 
 server.listen(PORT, () => {
