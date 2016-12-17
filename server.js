@@ -55,10 +55,10 @@ router.delete('/api/bev', function(req, res) {
   if (req.url.query.id) {
     storage.deleteEntry('bev', req.url.query.id)
     .then( bev => {
-      res.writeHead(200, {
+      res.writeHead(204, {
         'Content-Type': 'text/plain'
       });
-      res.write('resource deleted');
+      res.write('entry deleted - no content');
       res.end();
     })
     .catch( err => {
