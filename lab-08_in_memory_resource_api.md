@@ -22,11 +22,11 @@
   * `lib`
   * `model`
   * `test`
-<!-- * Create an HTTP server using the native NodeJS `http` module -->
-<!-- * Create an object constructor that creates a _simple resource_ with at least 3 properties -->
-  <!-- * include an `id` property that is set to a unique id (**hint:** you'll need to use `node-uuid`) -->
-  <!-- * include two additional properties of your choice (ex: name, content, etc.) -->
-<!-- * Create a custom body parser module that uses promises to parse the JSON body of `POST` and `PUT` requests -->
+* Create an HTTP server using the native NodeJS `http` module
+* Create an object constructor that creates a _simple resource_ with at least 3 properties
+  * include an `id` property that is set to a unique id (**hint:** you'll need to use `node-uuid`)
+  * include two additional properties of your choice (ex: name, content, etc.)
+* Create a custom body parser module that uses promises to parse the JSON body of `POST` and `PUT` requests
 * Create a custom url parser module that returns a promise and uses the NodeJS `url` and `querystring` modules to parse the request url
 * Create a router constructor that handles requests to `GET`, `POST`, `PUT`, and `DELETE` requests
 * Create a storage module that will store resources by their schema type (ex: note) and id
