@@ -63,7 +63,7 @@ describe('Recipe routes', function() {
     it('should remove a recipe from the recipe box', function(done) {
       request.delete(`localhost:${PORT}/api/recipe?id=${recipe.id}`)
       .end((err, res) => {
-        if(err) return done(err);
+        // if(err) return done(err);
         expect(res.status).to.equal(204);
         done();
       });
