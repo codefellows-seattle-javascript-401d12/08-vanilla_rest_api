@@ -14,11 +14,16 @@ router.get('/api/note', function(req,res){
   if(req.url.query.id){
     storage.fetchItem('note', req.url.query.id)
     .then(note => {
-      res.writeHead(200, {
-        'Content': 'application/json'
-      });
-      res.write(JSON.stringify(note));
-      res.end();
+      if(!note.id){
+        res.writeHead(204, {'Content': 'text/plain'});
+        res.write('no content in the body');
+        res.end();
+      }
+      if(note.id){
+        res.writeHead(200, {'Content': 'application/json'});
+        res.write(JSON.stringify(note));
+        res.end();
+      }
     })
     .catch(err => {
       console.error(err);
@@ -48,18 +53,13 @@ router.post('/api/note', function(req,res){
   }
 });
 
-server.listen(PORT, function(){
-  console.log('server is on!!');
-});
-
-router.delete('/api/note', function(res,req){
+router.delete('/api/note', function(req,res){
   if(req.url.query.id){
-    storage.fetchDel('note', req.body.query.id)
-     .then(note => {
+    storage.fetchDel('note', req.url.query.id)
+     .then(() => {
        res.writeHead(200,{
          'Content-Type': 'text/plain'
        });
-       res.write(note);
        res.write('item deleted!');
        res.end();
      } )
@@ -73,4 +73,30 @@ router.delete('/api/note', function(res,req){
      });
     return;
   }
+});
+
+router.put('/api/note', function(req,res){
+  if(req.body.id){
+    try{
+      var note = new Note(req.body.name, req.body.content, req.body.favFood, req.body.place);
+      storage.put('note', req.body.id, note)
+      .then(() => {
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end();
+      });
+      res.end();
+    }
+    catch(err){
+      console.error(err);
+      res.writeHead(400, {
+        'Content-Type': 'text/plain'
+      });
+      res.write('bad request');
+      res.end();
+    }
+  }
+});
+
+server.listen(PORT, function(){
+  console.log('server is on!!');
 });

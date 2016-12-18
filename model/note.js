@@ -11,5 +11,4 @@ module.exports = function(name, content, food, place){
   this.content = content;
   this.favFood = food;
   this.place = place;
-  console.log('name: ', this.name, 'id: ', this.id, 'content: ', this.content,'place: ', this.place);
 };
