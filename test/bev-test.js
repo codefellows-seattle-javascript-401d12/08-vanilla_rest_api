@@ -9,6 +9,16 @@ describe('BEV Routes', function() {
   var vehicle = null;
 
   describe('POST: api/bev', function() {
+    it('should throw a 400 \'bad request\' error', function(done) {
+      request.post('localhost:3000/api/bev')
+      .send({})
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.text).to.equal('bad request');
+        done();
+      });
+    });
+
     it('should return a vehicle info entry', function(done) {
       request.post('localhost:3000/api/bev')
       .send({ vehicle: 'Test Vehicle', info: 'Test info' })
@@ -23,7 +33,16 @@ describe('BEV Routes', function() {
     });
   });
 
-  describe('GET: api/bev?id=test_id', function() {
+  describe('GET: api/bev?id=test_id', function() {    
+    it('should throw a 404 \'not found\' error', function(done) {
+      request.get(`localhost:3000/api/bev?id=foo-bar`)
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.text).to.equal('resource not found');
+        done();
+      });
+    });
+
     it('should return a vehicle info entry', function(done) {
       request.get(`localhost:3000/api/bev?id=${vehicle.id}`)
       .end((err, res) => {
