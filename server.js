@@ -4,6 +4,7 @@ const http = require('http');
 const BEV = require('./model/bevs.js');
 const Router = require('./lib/router.js');
 const storage = require('./lib/storage.js');
+const response = require('./lib/response.js');
 const PORT = 3000;
 const router = new Router();
 
@@ -12,19 +13,11 @@ router.get('/api/bev', function(req, res) {
   if (req.url.query.id) {
     storage.fetchEntry('bev', req.url.query.id)
     .then( bev => {
-      res.writeHead(200, {
-        'Content-Type': 'application/json'
-      });
-      res.write(JSON.stringify(bev));
-      res.end();
+      response.sendJSON(res, 200, bev);
     })
     .catch( err => {
       console.error(err);
-      res.writeHead(404, {
-        'Content-Type': 'text/plain'
-      });
-      res.write('resource not found');
-      res.end();
+      response.sendText(res, 404, 'resource not found');
     });
 
     return;
@@ -33,19 +26,11 @@ router.get('/api/bev', function(req, res) {
   if (req.url && !req.url.query.id) {
     storage.fetchAll('bev')
     .then( bev => {
-      res.writeHead(200, {
-        'Content-Type': 'application/json'
-      });
-      res.write(JSON.stringify(bev));
-      res.end();
+      response.sendJSON(res, 200, bev);
     })
     .catch( err => {
       console.error(err);
-      res.writeHead(404, {
-        'Content-Type': 'text/plain'
-      });
-      res.write('resource not found');
-      res.end();
+      response.sendText(res, 404, 'resource not found');
     });
 
     return;
@@ -57,18 +42,10 @@ router.post('/api/bev', function(req, res) {
   try {
     var bev = new BEV(req.body.vehicle, req.body.info);
     storage.createEntry('bev', bev);
-    res.writeHead(200, {
-      'Content-Type': 'application/json'
-    });
-    res.write(JSON.stringify(bev));
-    res.end();
+    response.sendJSON(res, 200, bev);
   } catch (err) {
     console.error(err);
-    res.writeHead(400, {
-      'Content-Type': 'text/plain'
-    });
-    res.write('bad request');
-    res.end();
+    response.sendText(res, 400, 'bad request');
   }
 });
 
@@ -76,19 +53,11 @@ router.delete('/api/bev', function(req, res) {
   if (req.url.query.id) {
     storage.deleteEntry('bev', req.url.query.id)
     .then( bev => {
-      res.writeHead(204, {
-        'Content-Type': 'text/plain'
-      });
-      res.write('entry deleted - no content');
-      res.end();
+      response.sendText(res, 204, 'entry deleted - no content');
     })
     .catch( err => {
       console.error(err);
-      res.writeHead(404, {
-        'Content-Type': 'text/plain'
-      });
-      res.write('resource not found');
-      res.end();
+      response.sendText(res, 404, 'resource not found');
     });
   }
 });
