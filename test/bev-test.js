@@ -33,7 +33,7 @@ describe('BEV Routes', function() {
     });
   });
 
-  describe('GET: api/bev?id=test_id', function() {    
+  describe('GET: api/bev?id=test_id', function() {
     it('should throw a 404 \'not found\' error', function(done) {
       request.get(`localhost:3000/api/bev?id=foo-bar`)
       .end((err, res) => {
