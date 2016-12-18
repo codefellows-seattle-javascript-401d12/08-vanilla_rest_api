@@ -6,7 +6,7 @@ const response = require('../lib/response.js');
 
 module.exports = function(router) {
   router.get('/api/spiritAnimal', function(req, res) {
-    console.log('req.url', req.url)
+    console.log('req.url', req.url);
     if (req.url.query.id) {
       storage.fetchItem('spiritAnimal', req.url.query.id)
       .then( spiritAnimal => {
