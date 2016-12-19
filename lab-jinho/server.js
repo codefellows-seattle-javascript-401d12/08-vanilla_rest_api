@@ -32,7 +32,10 @@ app.get('/test', function(req, res) {
 
 app.post('/api/restaurant', jsonParser, function(req, res, next) {
   debug('POST: /api/restaurant');
-  // TODO: build post route
+
+  Restaurant.createRestaurant(req.body)
+  .then( restaurant => res.json(restaurant))
+  .catch( err => next(err));
 });
 
 app.listen(PORT, () => {
