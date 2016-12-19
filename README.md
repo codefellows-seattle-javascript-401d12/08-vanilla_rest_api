@@ -33,7 +33,7 @@ Transfer-Encoding: chunked
 ~~~
 
 GET:
-example: http GET localhost:3000/api/scheimaname id=="_*_*_*_*_*_*_*_*_*_*_*_*_*"
+example: http GET localhost:3000/api/scheimaname 
 
 ~~~
 http GET localhost:3000/api/note id=="f6430460-c50e-11e6-b f7b-83ba05acfa32"

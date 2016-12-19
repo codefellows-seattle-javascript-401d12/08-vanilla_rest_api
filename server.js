@@ -15,12 +15,12 @@ router.get('/api/note', function(req,res){
     storage.fetchItem('note', req.url.query.id)
     .then(note => {
       if(!note.id){
-        res.writeHead(204, {'Content': 'text/plain'});
+        res.writeHead(204, {'Content-Type': 'text/plain'});
         res.write('no content in the body');
         res.end();
       }
       if(note.id){
-        res.writeHead(200, {'Content': 'application/json'});
+        res.writeHead(200, {'Content-Type': 'application/json'});
         res.write(JSON.stringify(note));
         res.end();
       }
@@ -41,6 +41,9 @@ router.post('/api/note', function(req,res){
   try{
     var note = new Note(req.body.name, req.body.content, req.body.favFood, req.body.place);
     storage.createItem('note', note);
+    res.writeHead(200, {
+      'Content-Type' : 'application/json'
+    });
     res.write(JSON.stringify(note));
     res.end();
   } catch(err){
@@ -79,11 +82,11 @@ router.put('/api/note', function(req,res){
   if(req.body.id){
     try{
       var note = new Note(req.body.name, req.body.content, req.body.favFood, req.body.place);
-      storage.put('note', req.body.id, note)
-      .then(() => {
-        res.writeHead(200, {'Content-Type': 'application/json'});
-        res.end();
+      storage.put('note', req.body.id, note);
+      res.writeHead(200, {
+        'Content-Type' : 'application/json'
       });
+      res.write(JSON.stringify(note));
       res.end();
     }
     catch(err){
