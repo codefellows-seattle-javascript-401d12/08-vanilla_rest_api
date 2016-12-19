@@ -2,11 +2,15 @@
 =============
 
 structures :
+- data
+  - restaurant
+      - random item
 - lib
     - parse-json.js
     - parse-url.js
-    - storage.js
+    - response.js
     - router.js
+    - storage.js
 - model
     - restaurant.js
 - test
