@@ -1,7 +1,7 @@
 'use strict';
 
 const bluebird = require('bluebird');
-const fs = bluebird.promisifyAll(require('fs'), {suffix: "Prom"});
+const fs = bluebird.promisifyAll(require('fs'), {suffix: 'Prom'});
 module.exports = exports = {};
 
 exports.createItem = function(schemaName, item) {
