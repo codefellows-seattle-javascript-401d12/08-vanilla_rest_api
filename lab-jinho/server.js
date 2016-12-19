@@ -2,21 +2,38 @@
 
 //**DEPENDENCIES**
 //node modules
-const http = require('http');
+const express = require('express');
+const morgan = require('morgan');
+const createError = require('http-errors');
+const jsonParser = require('body-parser').json();
+const debug = require('debug')('restaurant:server');
+
+const app = express();
+const Restaurant = require('./model/restaurant.js');
+const storage = require('./lib/storage.js');
 //npm modules
 
 //custom modules
-const Router = require('./lib/router.js');
+
 
 //environment variables
 const PORT = process.env.PORT || 3000;
 //module constants
-const router = new Router();
 
-require('./route/restaurant-route.js')(router);
+
+
 //**START SERVER**
-const server = http.createServer(router.route());
+app.use(morgan('dev'));
 
-server.listen(PORT, () => {
-  console.log('server up:', PORT);
+app.get('/test', function(req, res) {
+  debug('debug test route');
+  res.json({ 'msg': 'test route worked'});
+});
+
+app.post('/api/restaurant', function(req, res, next) {
+  
+});
+
+app.listen(PORT, () => {
+  console.log(`server up: ${PORT}`);
 });
