@@ -22,25 +22,25 @@ exports.fetchItem = (schema, id) => {
   .catch (err => Promise.reject(err));
 };
 
-// exports.enumerate = (schema) => {
-//   console.log('enumerate****************');
-//   if (!schema) return Promise.reject(new Error('no schema'));
-//
-//   return fs.readdirProm(`${__dirname}/../data/${schema}`)
-//   .then( files => {
-//     console.log('files:', JSON.stringify(files));
-//     return JSON.stringify(files);
-//   })
-//   .catch (err => Promise.reject(err));
-// };
+exports.enumerate = (schema) => {
+  if (!schema) return Promise.reject(new Error('no schema'));
+
+  return fs.readdirProm(`${__dirname}/../data/${schema}/`)
+  .then( fileArray => {
+    fileArray.forEach( (val, i, array) => {
+      array[i] = val.split('.')[0];
+    });
+    return fileArray;
+  })
+  .catch( (err) => err);
+};
 
 exports.deleteItem = (schema, id) => {
-  return new Promise((resolve, reject) => {
-    if (!schema) return reject(new Error('no schema received'));
-    if (!id) return reject(new Error('no item id received'));
-    if (!storage[schema]) return reject(new Error('no such schema.'));
+  if (!schema) return Promise.reject(new Error('no schema received'));
+  if (!id) return Promise.reject(new Error('no item id received'));
 
-    delete storage[schema][id];
-    return resolve();
-  });
+  var path = `${__dirname}/../data/${schema}/${id}.json`;
+  return fs.accessProm(path)
+  .then( () => fs.unlinkProm(path))
+  .catch(err => Promise.reject(err));
 };

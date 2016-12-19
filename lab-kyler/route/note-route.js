@@ -6,6 +6,7 @@ const Joke = require('../model/joke.js');
 const response = require('../lib/response.js');
 
 module.exports = function(router) {
+
   router.post('/api/joke', function(req, res) {
     try{
       var joke = new Joke(req.body.setup, req.body.punchline);
@@ -18,19 +19,23 @@ module.exports = function(router) {
   });
 
   router.get('/api/joke', function(req, res) {
-    storage.fetchItem('joke', req.url.query.id)
-    .then (joke => {
-      response.sendJSON(res, 200, joke);
-    })
-    .catch( err => {
-      // if (err.code === 'ENOENT') {
-      //   storage.enumerate('joke')
-      //   .then( list => response.sendJSON(res, 200, list))
-      //   .catch(console.error(err));
-      // }
-      console.error(err);
-      response.sendText(res, 404, 'not found');
-    });
+    if (!req.url.query.id) {
+      storage.enumerate('joke')
+      .then( list => response.sendJSON(res, 200, list))
+      .catch(err => {
+        console.error(err);
+        response.sendText(res, 404, 'problem fetching joke list');
+      });
+    }
+    else {
+      storage.fetchItem('joke', req.url.query.id)
+      .then (data => {
+        response.sendJSON(res, 200, data);
+      })
+      .catch( () => {
+        response.sendText(res, 404, 'not found');
+      });
+    }
   });
 
   router.delete('/api/joke', function(req, res) {
