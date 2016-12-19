@@ -62,7 +62,9 @@ describe('BEV Routes', function() {
         if (err) return done(err);
         expect(res.status).to.equal(200);
         expect(res.body).to.be.an('array');
-        expect(res.body[0]).to.equal(vehicle.id);
+        // expect filenames to be sorted in alpha. order.
+        // thus, latest filename will be in random position in array
+        expect(res.body).to.include(vehicle.id);
         done();
       });
     });
