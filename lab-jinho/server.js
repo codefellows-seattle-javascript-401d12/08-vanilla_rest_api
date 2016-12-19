@@ -30,8 +30,9 @@ app.get('/test', function(req, res) {
   res.json({ 'msg': 'test route worked'});
 });
 
-app.post('/api/restaurant', function(req, res, next) {
-  
+app.post('/api/restaurant', jsonParser, function(req, res, next) {
+  debug('POST: /api/restaurant');
+  // TODO: build post route
 });
 
 app.listen(PORT, () => {
