@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 //module constants
 const router = new Router();
 
-require('./route/note-route.js')(router);
+require('./route/restaurant-route.js')(router);
 //**START SERVER**
 const server = http.createServer(router.route());
 
