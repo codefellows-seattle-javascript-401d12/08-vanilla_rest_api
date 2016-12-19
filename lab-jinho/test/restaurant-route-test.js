@@ -11,7 +11,7 @@ describe('Restaurant Routes', function() {
 //POST: test 400 should respond with 'bad request' if no request body was provided or body was invalid
   describe('POST: /api/restaurant', function(){
     it('respond with bad request - POST', function(done){
-      request.post('localhost:3000/api/note')
+      request.post('localhost:3000/api/restaurant')
       .send({invalid:'invalid body'})
       .end((err, res) => {
         expect(res.status).to.equal(400);
