@@ -49,8 +49,9 @@ app.get('/api/restaurant', function(req, res, next) {
 app.delete('/api/restaurant', function(req, res, next) {
   debug('DELETE: /api/restaurant');
 
-  Restaurant.deleteRestaurant('restaurant', req.query.id);
-  
+  Restaurant.deleteRestaurant('restaurant', req.query.id)
+  .then( () => res.status(204).send())
+  .catch( err => next(err));
 });
 
 app.use(function(err, req, res, next) {
