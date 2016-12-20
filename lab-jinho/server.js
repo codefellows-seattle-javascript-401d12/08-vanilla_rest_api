@@ -46,6 +46,13 @@ app.get('/api/restaurant', function(req, res, next) {
   .catch( err => next(err));
 });
 
+app.delete('/api/restaurant', function(req, res, next) {
+  debug('DELETE: /api/restaurant');
+
+  Restaurant.deleteRestaurant('restaurant', req.query.id);
+  
+});
+
 app.use(function(err, req, res, next) {
   debug('error middleware');
   console.error(err.message);
@@ -57,6 +64,7 @@ app.use(function(err, req, res, next) {
 
   err = createError(500, err.message);
   res.status(err.status).send(err.name);
+
 });
 
 

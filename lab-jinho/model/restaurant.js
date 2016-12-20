@@ -7,7 +7,7 @@ const storage = require('../lib/storage.js');
 
 const Restaurant = module.exports = function(restaurantname, address) {
   debug('restaurant constructor');
-  //TODO: createError
+
   if (!restaurantname) throw createError(400, 'expected restaurant name');
   if (!address) throw createError(400, 'expected address');
 
@@ -30,4 +30,9 @@ Restaurant.createRestaurant = function(_restaurant) {
 Restaurant.fetchRestaurant = function(id) {
   debug('fetchRestaurant');
   return storage.fetchItem('restaurant', id);
+};
+
+Restaurant.deleteRestaurant = function(schemaName, id) {
+  debug('deleteRestaurant');
+  return storage.deleteItem('restaurant', id);
 };
