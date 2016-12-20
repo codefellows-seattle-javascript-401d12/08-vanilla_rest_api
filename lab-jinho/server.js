@@ -27,17 +27,6 @@ app.use(cors);
 app.use(errors);
 app.use(restaurantRouter);
 
-
-
-// app.delete('/api/restaurant', function(req, res, next) {
-//   debug('DELETE: /api/restaurant');
-//
-//   Restaurant.deleteRestaurant('restaurant', req.query.id)
-//   .then( () => res.status(204).send())
-//   .catch( err => next(err));
-// });
-
-
 app.listen(PORT, () => {
   console.log(`server up: ${PORT}`);
 });
