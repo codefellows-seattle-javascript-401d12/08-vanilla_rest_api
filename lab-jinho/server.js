@@ -9,7 +9,6 @@ const jsonParser = require('body-parser').json();
 const debug = require('debug')('restaurant:server');
 
 const Restaurant = require('./model/restaurant.js');
-const storage = require('./lib/storage.js');
 //npm modules
 
 //custom modules
@@ -54,6 +53,7 @@ app.delete('/api/restaurant', function(req, res, next) {
   .catch( err => next(err));
 });
 
+// eslint-disable-next-line
 app.use(function(err, req, res, next) {
   debug('error middleware');
 
