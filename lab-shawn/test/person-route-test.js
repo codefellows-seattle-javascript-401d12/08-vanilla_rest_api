@@ -56,4 +56,20 @@ describe('Person Routes', function(){
       });
     });
   });
+  describe('DELETE: /api/person', function(){
+    it('should return with 404', function(done){
+      request.get(`localhost:${PORT}/api/person?id=123`)
+      .end((err) => {
+        expect(err.status).to.equal(404);
+        done();
+      });
+    });
+    it('should return with 204', function(done){
+      request.get(`localhost:${PORT}/api/person?id=00b17950-c35b-11e6-91c0-2f447f841b80`)
+      .end((err) => {
+        expect(err.status).to.equal(204);
+        done();
+      });
+    });
+  });
 });

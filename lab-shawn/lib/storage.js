@@ -2,36 +2,46 @@
 
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs'),{suffix: 'Prom'});
+const createError = require('http-errors');
+const debug = require('debug')('person:storage');
+
 
 module.exports = exports = {};
 
-exports.createPerson = function(schemaName, person){
-  if(!schemaName) return Promise.reject(new Error('expected schema name'));
-  if(!person) return Promise.reject(new Error('expected a person'));
+exports.createInstance = function(schemaName, person){
+  debug('createInstance');
+
+  if(!schemaName) return Promise.reject(createError(400, 'expected schema name'));
+  if(!person) return Promise.reject(createError(400, 'expected a person'));
 
   let json = JSON.stringify(person);
+
   return fs.writeFileProm(`${__dirname}/../data/${schemaName}/${person.id}.json`,json)
   .then( () => person )
-  .catch( err => Promise.reject(err));
+  .catch( err => Promise.reject(createError(404,err.message)));
 };
 
-exports.fetchPerson = function(schemaName,id){
-  if(!schemaName) return Promise.reject(new Error('expected schema name'));
-  if(!id) return Promise.reject(new Error('expected an id'));
+exports.fetchInstance = function(schemaName,id){
+  debug('fetchInstance');
+
+  if(!schemaName) return Promise.reject(createError(400, 'expected schema name'));
+  if(!id) return Promise.reject(createError(400, 'expected an id'));
 
   return fs.readFileProm(`${__dirname}/../data/${schemaName}/${id}.json`)
     .then( data => {
       let person = JSON.parse(data.toString());
       return person;
     })
-    .catch(err => Promise.reject(err));
+    .catch(err => Promise.reject(createError(404,err.message)));
 };
 
-exports.deletePerson = function(schemaName,id){
-  if(!schemaName) return Promise.reject(new Error('expected schema name'));
-  if(!id) return Promise.reject(new Error('expected id'));
+exports.deleteInstance = function(schemaName,id){
+  debug('deleteInstance');
+
+  if(!schemaName) return Promise.reject(createError(400, 'expected schema name'));
+  if(!id) return Promise.reject(createError(400, 'expected id'));
 
   return fs.unlinkProm(`${__dirname}/../data/${schemaName}/${id}.json`)
-    .catch(err => Promise.reject(err));
+    .catch(err => Promise.reject(createError(404,err.message)));
 
 };
