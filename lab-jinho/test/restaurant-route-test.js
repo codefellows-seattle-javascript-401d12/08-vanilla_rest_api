@@ -2,11 +2,17 @@
 
 const request = require('superagent');
 const expect = require('chai').expect;
+const Restaurant = require('../model/restaurant.js');
+const url = 'http://localhost:3000';
 
 require('../server.js');
 
+const exampleRestaurant = {
+  restaurantname: 'red robin',
+  address: 'seattle, wa'
+};
+
 describe('Restaurant Routes', function() {
-  var restaurant = null;
 
 //POST: test 400 should respond with 'bad request' if no request body was provided or body was invalid
   describe('POST: /api/restaurant', function(){

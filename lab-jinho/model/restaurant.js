@@ -23,7 +23,7 @@ Restaurant.createRestaurant = function(_restaurant) {
     let restaurant = new Restaurant(_restaurant.restaurantname, _restaurant.address);
     return storage.createItem('restaurant', restaurant);
   } catch (err) {
-    return Promise.reject(err);
+    return Promise.reject(createError(400, err.message));
   }
 };
 
@@ -32,7 +32,26 @@ Restaurant.fetchRestaurant = function(id) {
   return storage.fetchItem('restaurant', id);
 };
 
+Restaurant.updateRestaurant = function(id, _restaurant) {
+  debug('updateRestaurant');
+
+  return storage.fetchItem('restaurant', id)
+  .catch(err => Promise.reject(createError(404, err.message)))
+  .then( restaurant => {
+    for (var prop in restaurant) {
+      if (prop === 'id') continue;
+      if (_restaurant[prop]) restaurant[prop] = _restaurant[prop];
+    }
+    return storage.createItem('restaurant', restaurant);
+  });
+};
+
 Restaurant.deleteRestaurant = function(schemaName, id) {
   debug('deleteRestaurant');
   return storage.deleteItem('restaurant', id);
+};
+
+Restaurant.fetchIDs = function() {
+  debug('fetchIDs');
+  return storage.availIDs('restaurant');
 };
