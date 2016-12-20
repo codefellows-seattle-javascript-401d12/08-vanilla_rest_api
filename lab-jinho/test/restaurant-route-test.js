@@ -15,7 +15,7 @@ describe('Restaurant Routes', function() {
       .send({invalid:'invalid body'})
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.text).to.equal('bad request');
+        expect(res.text).to.equal('BadRequestError');
         done();
       });
     });
@@ -41,7 +41,7 @@ describe('Restaurant Routes', function() {
       request.get('localhost:3000/api/restaurant?id=123')
       .end((err, res) => {
         expect(res.status).to.equal(404);
-        expect(res.text).to.equal('not found');
+        expect(res.text).to.equal('NotFoundError');
         done();
       });
     });
@@ -52,7 +52,7 @@ describe('Restaurant Routes', function() {
       request.get('localhost:3000/api/restaurant')
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.text).to.equal('bad request');
+        expect(res.text).to.equal('BadRequestError');
         done();
       });
     });

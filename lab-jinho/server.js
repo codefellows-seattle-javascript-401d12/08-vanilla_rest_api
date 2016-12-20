@@ -56,7 +56,6 @@ app.delete('/api/restaurant', function(req, res, next) {
 
 app.use(function(err, req, res, next) {
   debug('error middleware');
-  console.error(err.message);
 
   if (err.status) {
     res.status(err.status).send(err.name);
