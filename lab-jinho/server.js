@@ -8,7 +8,6 @@ const createError = require('http-errors');
 const jsonParser = require('body-parser').json();
 const debug = require('debug')('restaurant:server');
 
-const app = express();
 const Restaurant = require('./model/restaurant.js');
 const storage = require('./lib/storage.js');
 //npm modules
@@ -18,6 +17,7 @@ const storage = require('./lib/storage.js');
 
 //environment variables
 const PORT = process.env.PORT || 3000;
+const app = express();
 //module constants
 
 
@@ -26,8 +26,8 @@ const PORT = process.env.PORT || 3000;
 app.use(morgan('dev'));
 
 app.get('/test', function(req, res) {
-  debug('debug test route');
-  res.json({ 'msg': 'test route worked'});
+  debug('debugging test route');
+  res.json({ 'msg': 'test route works'});
 });
 
 app.post('/api/restaurant', jsonParser, function(req, res, next) {
@@ -37,6 +37,28 @@ app.post('/api/restaurant', jsonParser, function(req, res, next) {
   .then( restaurant => res.json(restaurant))
   .catch( err => next(err));
 });
+
+app.get('/api/restaurant', function(req, res, next) {
+  debug('GET: /api/restaurant');
+
+  Restaurant.fetchRestaurant(req.query.id)
+  .then( restaurant => res.json(restaurant))
+  .catch( err => next(err));
+});
+
+app.use(function(err, req, res, next) {
+  debug('error middleware');
+  console.error(err.message);
+
+  if (err.status) {
+    res.status(err.status).send(err.name);
+    return;
+  }
+
+  err = createError(500, err.message);
+  res.status(err.status).send(err.name);
+});
+
 
 app.listen(PORT, () => {
   console.log(`server up: ${PORT}`);

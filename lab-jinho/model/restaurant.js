@@ -7,9 +7,9 @@ const storage = require('../lib/storage.js');
 
 const Restaurant = module.exports = function(restaurantname, address) {
   debug('restaurant constructor');
-
-  if (!restaurantname) throw new Error('expected restaurant name');
-  if (!address) throw new Error('expected address');
+  //TODO: createError
+  if (!restaurantname) throw createError(400, 'expected restaurant name');
+  if (!address) throw createError(400, 'expected address');
 
   this.id = uuid.v1();
   this.restaurantname = restaurantname;
