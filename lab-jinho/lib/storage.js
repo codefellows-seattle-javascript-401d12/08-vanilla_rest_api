@@ -41,8 +41,10 @@ exports.fetchItem = function(schemaName, id) {
 };
 
 exports.deleteItem = function(schemaName, id){
-  if (!schemaName) return Promise.reject(new Error('expected schema name'));
-  if (!id) return Promise.reject(new Error('expected id'));
+  debug('deleteItem');
+
+  if (!schemaName) return Promise.reject(createError(400, 'expected schema name'));
+  if (!id) return Promise.reject(createError(400, 'expected id'));
 
   return fs.unlinkProm(`${__dirname}/../data/${schemaName}/${id}.json`);
 };
