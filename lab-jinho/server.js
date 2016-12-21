@@ -4,29 +4,26 @@
 //node modules
 const express = require('express');
 const morgan = require('morgan');
-const createError = require('http-errors');
-const debug = require('debug')('restaurant:server');
-const cors = require('./lib/cors-middleware.js');
-const errors = require('./lib/error-middleware.js');
-const restaurantRouter = require('./route/restaurant-router.js');
+const cors = require('cors');
+const Promise = require('bluebird');
+const mongoose = require('mongoose');
+const debug = require('debug')('restaurantlist:server');
+
+
 //npm modules
 
 //custom modules
 
 
 //environment variables
-const PORT = process.env.PORT || 3000;
 const app = express();
+const PORT = process.env.PORT || 3000;
 //module constants
 
 
 
 //**START SERVER**
-app.use(morgan('dev'));
-app.use(cors);
-app.use(errors);
-app.use(restaurantRouter);
 
 app.listen(PORT, () => {
-  console.log(`server up: ${PORT}`);
+  debug(`server up: ${PORT}`);
 });
