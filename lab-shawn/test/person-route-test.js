@@ -24,8 +24,8 @@ describe('Person Routes', function(){
     it('should return bad request', function(done){
       request.post(`localhost:${PORT}/api/person`)
       .send({name:'test name'})
-      .end((err) => {
-        expect(err.status).to.equal(400);
+      .end((err,res) => {
+        expect(res.status).to.equal(400);
         done();
       });
     });
@@ -43,31 +43,31 @@ describe('Person Routes', function(){
     });
     it('should return not found', function(done){
       request.get(`localhost:${PORT}/api/person?id=123`)
-      .end((err) => {
-        expect(err.status).to.equal(404);
+      .end((err,res) => {
+        expect(res.status).to.equal(404);
         done();
       });
     });
     it('should return bad request', function(done){
       request.get(`localhost:${PORT}/api/person`)
-      .end((err) => {
-        expect(err.status).to.equal(400);
+      .end((err,res) => {
+        expect(res.status).to.equal(400);
         done();
       });
     });
   });
   describe('DELETE: /api/person', function(){
     it('should return with 404', function(done){
-      request.get(`localhost:${PORT}/api/person?id=123`)
-      .end((err) => {
-        expect(err.status).to.equal(404);
+      request.delete(`localhost:${PORT}/api/person?id=123`)
+      .end((err,res) => {
+        expect(res.status).to.equal(404);
         done();
       });
     });
     it('should return with 204', function(done){
-      request.get(`localhost:${PORT}/api/person?id=00b17950-c35b-11e6-91c0-2f447f841b80`)
-      .end((err) => {
-        expect(err.status).to.equal(204);
+      request.delete(`localhost:${PORT}/api/person?id=${person.id}`)
+      .end((err,res) => {
+        expect(res.status).to.equal(204);
         done();
       });
     });
