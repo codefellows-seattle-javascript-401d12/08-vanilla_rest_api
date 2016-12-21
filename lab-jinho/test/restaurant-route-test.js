@@ -14,65 +14,104 @@ const exampleRestaurant = {
 
 describe('Restaurant Routes', function() {
 
-//POST: test 400 should respond with 'bad request' if no request body was provided or body was invalid
-  describe('POST: /api/restaurant', function(){
-    it('respond with bad request - POST', function(done){
-      request.post('localhost:3000/api/restaurant')
-      .send({invalid:'invalid body'})
-      .end((err, res) => {
-        expect(res.status).to.equal(400);
-        expect(res.text).to.equal('BadRequestError');
-        done();
-      });
-    });
-  });
-//POST: test 200 should respond with the body content for post request with valid body
-  describe('POST: /api/restaurant', function() {
-    it('should return a restaurant', function(done) {
-      request.post('localhost:3000/api/restaurant')
-      .send({restaurantname: 'test restaurant name', address: 'test address'})
-      .end((err, res) => {
-        if (err) return done(err);
-        expect(res.status).to.equal(200);
-        expect(res.body.restaurantname).to.equal('test restaurant name');
-        expect(res.body.address).to.equal('test address');
-        restaurant = res.body;
-        done();
-      });
-    });
-  });
-//GET: test 404 should respond with 'not found' for valid requests made with id not found
-  describe('GET: /api/restaurant', function(){
-    it('return error for no id valid request - GET', function(done){
-      request.get('localhost:3000/api/restaurant?id=123')
-      .end((err, res) => {
-        expect(res.status).to.equal(404);
-        expect(res.text).to.equal('NotFoundError');
-        done();
-      });
-    });
-  });
-//GET: test 400 should respond with 'bad request' if no id was provided in request
-  describe('GET: /api/restaurant', function(){
-    it('return error with no id - GET', function(done){
-      request.get('localhost:3000/api/restaurant')
-      .end((err, res) => {
-        expect(res.status).to.equal(400);
-        expect(res.text).to.equal('BadRequestError');
-        done();
-      });
-    });
-  });
-//GET: test 200 should contain response body for request made with valid id
   describe('GET: /api/restaurant', function() {
-    it('should return a restaurant', function(done) {
-      request.get(`localhost:3000/api/restaurant?id=${restaurant.id}`)
-      .end((err, res) => {
-        if (err) return done(err);
-        expect(res.status).to.equal(200);
-        expect(res.body.restaurantname).to.equal('test restaurant name');
-        expect(res.body.address).to.equal('test address');
-        done();
+    describe('with a valid id', function() {
+      before( done => {
+        Restaurant.createRestaurant(exampleRestaurant)
+        .then(restaurant => {
+          this.tempRestaurant = restaurant;
+          done();
+        })
+        .catch( err => done(err));
+      });
+
+      after( done => {
+        Restaurant.deleteRestaurant(this.tempRestaurant.id)
+        .then( ()=> done())
+        .catch( err => done(err));
+      });
+
+      it('should return restaurant', done => {
+        request.get(`${url}/api/restaurant/${this.tempRestaurant.id}`)
+        .end((err, res) => {
+          if (err) return done(err);
+          expect(res.status).to.equal(200);
+          expect(res.body.id).to.equal(this.tempRestaurant.id);
+          expect(res.body.restaurantname).to.equal(this.tempRestaurant.restaurantname);
+          expect(res.body.address).to.equal(this.tempRestaurant.address);
+          done();
+        });
+      });
+
+      describe('with invalid id', function() {
+        it('should respond with 404 status code', done => {
+          request.get(`${url}/api/restaurant/123`)
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            done();
+          });
+        });
+      });
+    });
+  });
+
+  describe('POST: /api/restaurant', function() {
+    describe('with valid body', function() {
+      after( done => {
+        if (this.tempRestaurant) {
+          Restaurant.deleteRestaurant(this.tempRestaurant.id)
+          .then( ()=> done())
+          .catch( err => done(err));
+        }
+      });
+
+      it('should return restaurant', done => {
+        request.post(`${url}/api/restaurant`)
+        .send(exampleRestaurant)
+        .end((err, res) => {
+          if (err) return done (err);
+          expect(res.status).to.equal(200);
+          expect(res.body.restaurantname).to.equal(exampleRestaurant.restaurantname);
+          expect(res.body.address).to.equal(exampleRestaurant.address);
+          this.tempRestaurant = res.body;
+          done();
+        });
+      });
+    });
+  });
+
+  describe('PUT: /api/restaurant', function() {
+    describe('with valid id and body', function() {
+      before( done => {
+        Restaurant.createRestaurant(exampleRestaurant)
+        .then( restaurant => {
+          this.tempRestaurant = restaurant;
+          done();
+        })
+        .catch( err => done(err));
+      });
+
+      after( done => {
+        if (this.tempRestaurant) {
+          Restaurant.deleteRestaurant(this.tempRestaurant.id)
+          .then( ()=> done())
+          .catch(done);
+        }
+      });
+
+      it('should return restaurant', done => {
+        let updateRestaurant = { restaurantname: 'new restaurant name', address: 'new address'};
+        request.put(`${url}/api/restaurant?id=${this.tempRestaurant.id}`)
+        .send(updateRestaurant)
+        .end((err, res) => {
+          if (err) return done(err);
+          expect(res.status).to.equal(200);
+          expect(res.body.id).to.equal(this.tempRestaurant.id);
+          for (var prop in updateRestaurant) {
+            expect(res.body[prop]).to.equal(updateRestaurant[prop]);
+          }
+          done();
+        });
       });
     });
   });

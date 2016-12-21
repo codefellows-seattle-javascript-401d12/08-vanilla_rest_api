@@ -5,9 +5,6 @@ const fs = Promise.promisifyAll(require('fs'), {suffix: 'Prom'});
 const createError = require('http-errors');
 const debug = require('debug')('restaurant:storage');
 
-const storage = {};
-
-
 module.exports = exports = {};
 
 exports.createItem = function(schemaName, item) {
@@ -52,6 +49,6 @@ exports.deleteItem = function(schemaName, id){
 
 exports.availIDs = function(schemaName) {
   return fs.readdirProm(`${__dirname}/../data/${schemaName}`)
-  .then( files => files.map(name => name.split('.json')[0]))
+  .then( files => files.map(restaurantname => restaurantname.split('.json')[0]))
   .catch( err => Promise.reject(createError(404, err.message)));
 };

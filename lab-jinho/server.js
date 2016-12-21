@@ -8,7 +8,7 @@ const createError = require('http-errors');
 const debug = require('debug')('restaurant:server');
 const cors = require('./lib/cors-middleware.js');
 const errors = require('./lib/error-middleware.js');
-const restaurantRouter = require('./route/restaurantRouter.js');
+const restaurantRouter = require('./route/restaurant-router.js');
 //npm modules
 
 //custom modules
