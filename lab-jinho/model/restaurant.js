@@ -46,7 +46,7 @@ Restaurant.updateRestaurant = function(id, _restaurant) {
   });
 };
 
-Restaurant.deleteRestaurant = function(schemaName, id) {
+Restaurant.deleteRestaurant = function(id) {
   debug('deleteRestaurant');
   return storage.deleteItem('restaurant', id);
 };
