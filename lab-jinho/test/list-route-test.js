@@ -3,6 +3,8 @@
 const expect = require('chai').expect;
 const request = require('superagent');
 const Restaurantlist = require('../model/restaurantlist.js');
+const Restaurant = require('../model/restaurant.js');
+
 const PORT = process.env.PORT || 3000;
 
 process.env.MONGODB_URI = 'mongodb://localhost/restaurantlisttest';
@@ -11,7 +13,13 @@ require('../server.js');
 
 const url = `http://localhost:${PORT}`;
 const exampleRestaurantlist = {
+  restaurantname: 'test name'
+  timestamp: new Date()
+};
+
+const exampleRestaurant = {
   restaurantname: 'test restaurant name'
+  timestamp: new Date()
 };
 
 describe('Restaurantlist Routes', function() {

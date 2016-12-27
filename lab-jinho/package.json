@@ -7,8 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "DEBUG='restaurantlist*' mocha",
-    "start": "DEBUG='restaurantlist*' node server.js"
+    "test": "DEBUG='restaurant*' mocha",
+    "start": "DEBUG='restaurant*' node server.js"
   },
   "keywords": [],
   "author": "",
