@@ -9,7 +9,7 @@ const Restaurant = require('./restaurant.js');
 
 const listSchema = Schema({
   restaurantname: { type: String, required: true },
-  timestamp: { type: Date, required: true }
+  timestamp: { type: Date, required: true },
   restaurants: [{ type: Schema.Types.ObjectId, ref: 'restaurant' }]
 });
 
@@ -22,7 +22,7 @@ List.findByIdAndAddNote = function(id, restaurant) {
   .catch( err => Promise.reject(createError(404, err.message)))
   .then( list => {
     restaurant.listID = list._id;
-    this.tempList = list
+    this.tempList = list;
     return new Restaurant(restaurant).save();
   })
   .then( restaurant => {
