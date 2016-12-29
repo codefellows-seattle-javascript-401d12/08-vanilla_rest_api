@@ -29,6 +29,8 @@ describe('note routes', function(){
         expect(res.status).to.equal(200);
         expect(res.body.name).to.equal('apple');
         expect(res.body.content).to.equal('apple is a fruit');
+        expect(res.body.favFood).to.equal(undefined);
+        expect(res.body.place).to.equal(undefined);
         done();
       });
     });
