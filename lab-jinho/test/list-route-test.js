@@ -40,7 +40,7 @@ describe('List Routes', function() {
         .end((err, res) => {
           if (err) return done(err);
           expect(res.status).to.equal(200);
-          expect(res.body.name).to.equal('test restaurant');
+          expect(res.body.name).to.equal('test list');
           this.tempList = res.body;
           done();
         });

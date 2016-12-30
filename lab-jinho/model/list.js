@@ -8,15 +8,15 @@ const Schema = mongoose.Schema;
 const Restaurant = require('./restaurant.js');
 
 const listSchema = Schema({
-  restaurantname: { type: String, required: true },
+  name: { type: String, required: true },
   timestamp: { type: Date, required: true },
   restaurants: [{ type: Schema.Types.ObjectId, ref: 'restaurant' }]
 });
 
 const List = module.exports = mongoose.model('list', listSchema);
 
-List.findByIdAndAddNote = function(id, restaurant) {
-  debug('findByIdAndAddNote');
+List.findByIdAndAddRestaurant = function(id, restaurant) {
+  debug('findByIdAndAddRestaurant');
 
   return List.findById(id)
   .catch( err => Promise.reject(createError(404, err.message)))
