@@ -8,12 +8,12 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const Promise = require('bluebird');
-const debug = require('debug')('restaurantlist:server');
+const debug = require('debug')('restaurant:server');
 
 //app modules
-const restaurantlistRouter = require('./route/restaurantlist-route.js');
-const restaurantRouter = require('./');
-const errors = require('./');
+const listRouter = require('./route/list-route.js');
+const restaurantRouter = require('./route/restaurant-route.js');
+const errors = require('./lib/error-middleware.js');
 
 //environment variables
 const PORT = process.env.PORT || 3000;
@@ -28,7 +28,7 @@ const app = express();
 app.use(cors());
 app.use(morgan('dev'));
 
-app.use(restaurantlistRouter);
+app.use(listRouter);
 app.use(restaurantRouter);
 app.use(errors);
 
