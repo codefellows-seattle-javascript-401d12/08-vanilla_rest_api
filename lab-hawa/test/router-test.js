@@ -43,8 +43,9 @@ describe('Spirit Animal Routes', function() {
       request.delete(`localhost:3000/api/spiritAnimal?id=${spiritAnimal.id}`)
       .end((err, res) => {
         expect(res.status).to.equal(204);
-        expect(res.body.title).to.equal(undefined);
-        expect(res.body.skill).to.equal(undefined);
+        expect(res.body.name).to.equal(undefined);
+        expect(res.body.SpiritAnimal).to.equal(undefined);
+        expect(res.body.spiritAnimalName).to.equal(undefined);
         done();
       });
     });
